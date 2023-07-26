@@ -5,7 +5,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'g_stock',
   password: 'sedra',
-  port: 5434,
+  port: 5432,
 });
 
 module.exports = {

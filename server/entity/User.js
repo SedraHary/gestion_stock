@@ -1,10 +1,11 @@
 class User {
-    constructor(id, name, email) {
-      this.id = id;
-      this.name = name;
-      this.email = email;
+    constructor(userId, userAgentCode, userName, userType, password ) {
+      this.userId = userId;
+      this.userAgentCode = userAgentCode;
+      this.userName = userName;
+      this.userType = userType;
+      this.password = password;
     }
   }
   
   module.exports = User;
-  
