@@ -1,0 +1,133 @@
+
+CREATE TABLE public.produit (
+    articleId serial PRIMARY KEY,
+    articleFamily varchar(100) NOT NULL,
+	articleName varchar(100) NOT NULL,
+    articleDetail text,
+	articleUnit varchar(50)
+    articlePV_DET numeric(15, 2) NOT NULL,
+	articlePV_GROS numeric(15, 2) NOT NULL,
+	articlePV_REV numeric(12, 2) NOT NULL,
+	articlePA numeric(12, 2) NOT NULL,
+    
+);
+
+CREATE TABLE public.article (
+    articleId serial PRIMARY KEY,
+    articleFamily varchar(100) NOT NULL,
+	articleName varchar(100) NOT NULL,
+    articleDetail text,
+	articleUnit varchar(50),
+    articlePV_DET numeric(15, 2) NOT NULL,
+	articlePV_GROS numeric(15, 2) NOT NULL,
+	articlePV_REV numeric(15, 2) NOT NULL,
+	articlePA numeric(15, 2) NOT NULL
+    
+);
+CREATE TABLE public.user (
+    userId serial PRIMARY KEY,
+    userAgentCode varchar(100) NOT NULL,
+	userName varchar(100) NOT NULL,
+    userType varchar(100),
+	password varchar(50)
+    
+);
+customerId, customerName, customerLastName
+CREATE TABLE public.customer (
+    customerId serial PRIMARY KEY,
+	customerName varchar(100) NOT NULL,
+    customerLastName varchar(100)   
+);
+
+F: fournisseurId, fournisseurName,fournisseurLastName, fournisseurAdress, fournisseurContact
+CREATE TABLE public.supplier (
+    supplierId serial PRIMARY KEY,
+	supplierName varchar(100) NOT NULL,
+    supplierLastName varchar(100)   
+);
+
+F: factureId, factureNumero, MontantTotalFacture, date_ajout_facture
+CREATE TABLE public.bill (
+    bill_Id serial PRIMARY KEY,
+	bill_Number varchar(100) NOT NULL,
+    bill_total_price numeric(15, 2),
+	bill_date date
+);
+
+DF : id, facture_id, article_id,quantité, prix_unitaire,sous_total
+CREATE TABLE public.bill_detail (
+    bill_detail_id serial PRIMARY KEY,
+	quantity varchar(100) NOT NULL,
+    unite_price numeric(15, 2),
+	amount numeric(15, 2),
+	bill_Id,
+	article_id
+);
+
+M: storeId, storeName
+CREATE TABLE public.store (
+    storeId serial PRIMARY KEY,
+	storeName varchar(100) NOT NULL
+);
+
+Stock: id, article_id, quantité en stock,emplacement_stock,date_ajout
+CREATE TABLE public.stock (
+	stock_id serial PRIMARY KEY,
+	quantity_in_stock numeric(15, 2) NOT NULL,
+	stock_location varchar(100),
+	stock_add_date date,
+	article_id
+);
+
+
+FINAL POUR CREATION TABLE:
+CREATE TABLE public.customer (
+    customerId serial PRIMARY KEY,
+	customerName varchar(100) NOT NULL,
+    customerLastName varchar(100)   
+);
+CREATE TABLE public.supplier (
+    supplierId serial PRIMARY KEY,
+	supplierName varchar(100) NOT NULL,
+    supplierLastName varchar(100)   
+);
+CREATE TABLE public.bill (
+    bill_Id serial PRIMARY KEY,
+	bill_Number varchar(100) NOT NULL,
+    bill_total_price numeric(15, 2),
+	bill_date DATE
+);
+CREATE TABLE public.bill_detail (
+    bill_detail_id serial PRIMARY KEY,
+	quantity varchar(100) NOT NULL,
+    unite_price numeric(15, 2),
+	amount numeric(15, 2)
+);
+ALTER TABLE public.bill_detail
+ADD COLUMN bill_Id INTEGER,
+ADD CONSTRAINT fk_relation_bill_detail
+FOREIGN KEY (bill_Id) REFERENCES public.bill(bill_Id);
+
+ALTER TABLE public.bill_detail
+ADD COLUMN article_id INTEGER,
+ADD CONSTRAINT fk_relation_bill_article
+FOREIGN KEY (article_id) REFERENCES public.article(articleid);
+
+CREATE TABLE public.store (
+    storeId serial PRIMARY KEY,
+	storeName varchar(100) NOT NULL
+);
+CREATE TABLE public.stock (
+	stock_id serial PRIMARY KEY,
+	quantity_in_stock numeric(10, 2) NOT NULL,
+	stock_location varchar(100),
+	stock_add_date DATE
+);
+ALTER TABLE public.stock
+ADD COLUMN article_id INTEGER,
+ADD CONSTRAINT fk_relation_stock_article
+FOREIGN KEY (article_id) REFERENCES public.article(articleid);
+
+
+EXPORTER LA BASE:
+pg_dump -U postgres -d g_stock -f D:\Freelance/backup_stock.sql
