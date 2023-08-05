@@ -9,10 +9,24 @@ const customerRoutes = require('./routes/CustomerRoutes');
 const stockRoutes = require('./routes/StockRoutes');
 const storeRoutes = require('./routes/StoreRoutes');
 const supplierRoutes = require('./routes/SupplierRoutes');
+const path = require('path');
 
 const app = express();
-
+// app.use(express.static('../public'));
 app.use(cors());
+
+// app.get('/dashboard', (req, res) => {
+//   // Servez le fichier dashboard.html
+//   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+// });
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Route pour "/dashboard"
+app.get('/dashboard', (req, res) => {
+  // Servez le fichier dashboard.html
+  res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
+});
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.use('/api', usersRoutes);

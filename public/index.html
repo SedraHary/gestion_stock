@@ -1,0 +1,25 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Management App</title>
+    <!-- Mettez ici les liens vers les feuilles de style ou d'autres ressources globales -->
+</head>
+<body>
+    <!-- Vérifier si l'utilisateur est connecté -->
+    <script src="./js/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Vérifier si l'utilisateur est déjà connecté
+            const authToken = localStorage.getItem('authToken'); // Vous devez implémenter la gestion du token d'authentification côté backend
+            if (authToken) {
+                // Rediriger vers la page principale si l'utilisateur est déjà connecté
+                window.location.href = 'dashboard.html'; // Remplacez par l'URL de votre page principale après la connexion
+            } else {
+                // Rediriger vers la page de login si l'utilisateur n'est pas connecté
+                window.location.href = 'login.html'; // Remplacez par l'URL de votre page de login
+            }
+        });
+    </script>
+</body>
+</html>

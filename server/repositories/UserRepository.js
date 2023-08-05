@@ -11,6 +11,16 @@ class UserRepository {
       throw new Error('Internal server error');
     }
   }
+
+  async getUserLoged(username, password) {
+    try {
+      const result = await db.query(`SELECT * FROM public.user where username='${username}' and password='${password}' `);console.log(username,password);
+      return result.rows.map((row) => new User(row.userid, row.useragentcode, row.username, row.usertype, row.password));
+    } catch (err) {
+      console.error('Error fetching user:', err);
+      throw new Error('Internal server error');
+    }
+  }
 }
 
 module.exports = new UserRepository();
