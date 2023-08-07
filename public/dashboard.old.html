@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Template</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-profile">
+      <img src="user-icon.png" alt="User Icon">
+      <span>Nom de l'utilisateur connecté</span>
+    </div>
+    <ul class="menu">
+      <li class="active"><a href="#" data-content="dashboard">Tableau de bord</a></li>
+      <li><a href="#" data-content="stock">Gestion stock</a></li>
+      <li><a href="#" data-content="utilisateur">Gestion utilisateur</a></li>
+      <li><a href="#" data-content="client">Gestion client</a></li>
+      <li><a href="#" data-content="fournisseur">Gestion fournisseur</a></li>
+      <li><a href="#" data-content="facture">Création facture</a></li>
+    </ul>
+    <button class="logout-btn">Déconnexion</button>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content">
+    <!-- Content will be dynamically loaded here based on the sidebar menu selection -->
+    <div id="dashboard" class="active-content">
+      <!-- Dashboard Content -->
+    </div>
+    <div id="stock" class="content">
+      <!-- Gestion Stock Content -->
+    </div>
+    <div id="utilisateur" class="content">
+      <!-- Gestion Utilisateur Content -->
+    </div>
+    <div id="client" class="content">
+      <!-- Gestion Client Content -->
+    </div>
+    <div id="fournisseur" class="content">
+      <!-- Gestion Fournisseur Content -->
+    </div>
+    <div id="facture" class="content">
+      <!-- Création Facture Content -->
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Handling Sidebar Menu Click
+      $('.menu li a').on('click', function(e) {
+        e.preventDefault();
+        $('.menu li').removeClass('active');
+        $(this).parent().addClass('active');
+        const contentId = $(this).data('content');
+        $('.content').removeClass('active-content');
+        $('#' + contentId).addClass('active-content');
+      });
+
+      // Handling Logout Button Click
+      $('.logout-btn').on('click', function() {
+        // Implement logout logic here
+      });
+    });
+  </script>
+</body>
+</html>

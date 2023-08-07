@@ -1,7 +1,9 @@
 
 (function ($) {
     "use strict";
-
+    $(window).on('load', function() {
+        $('#loading-overlay').fadeOut('slow');
+    });
 
     /*==================================================================
     [ Focus input ]*/
@@ -22,6 +24,7 @@
     var input = $('.validate-input .input100');
 
     $('.validate-form').on('submit',function(event){
+        $('#loading-overlay').addClass('show');
         var check = true;
 
         for(var i=0; i<input.length; i++) {
@@ -34,7 +37,6 @@
             event.preventDefault();
             const email = $('#email').val();
             const password = $('#password').val();
-            console.log(email,password);
             fetch("/api/login/user", {
                 method: "POST",
                 headers: {
@@ -46,23 +48,28 @@
                 }),
             })
             .then((response) => {
-                console.log(11,response);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
+                $('#loading-overlay').removeClass('show');
                 return response.json();
             })
             .then((data) => {
-                console.log(data)
                 if (data.length>0) {
+                    
+                    sessionStorage.setItem('userName',data[0].userName);
+                    sessionStorage.setItem('userId',data[0].userId);
+                    sessionStorage.setItem('userType',data[0].userType);
+                    sessionStorage.setItem('userAgentCode',data[0].userAgentCode);
                     window.location.href = 'dashboard';
                 } else {
-                    alert("Votre mot de passe ou identifiant n'est pas correcte.");
+                    $("#errorMessageLogin").show();
                 }
             })
             .catch((error) => {
                 message.textContent = "Une erreur s'est produite lors de la connexion.";
                 console.error("Error:", error);
+                $('#loading-overlay').removeClass('show');
             });
         }
         return check;
