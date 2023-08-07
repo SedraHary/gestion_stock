@@ -6967,6 +6967,7 @@ COPY public.test (testid, articlefamily, articlename, articledetail, articleunit
 
 COPY public."user" (userid, useragentcode, username, usertype, password) FROM stdin;
 1	001	admin	admin	admin
+2	001	test	admin	test
 \.
 
 
@@ -7030,7 +7031,7 @@ SELECT pg_catalog.setval('public.test_testid_seq', 13367, true);
 -- Name: user_userid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_userid_seq', 1, true);
+SELECT pg_catalog.setval('public.user_userid_seq', 2, true);
 
 
 --
