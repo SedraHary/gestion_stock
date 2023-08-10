@@ -33,18 +33,18 @@
 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="./js/jquery-3.7.0.min.js"></script>7
+    <script src="./js/jquery-3.7.0.min.js"></script>
     
 </head>
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"> -->
+            <!-- <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"> -->
+                <!-- <span class="sr-only">Loading...</span> -->
+            <!-- </div> -->
+        <!-- </div> -->
         <!-- Spinner End -->
 
 
@@ -52,7 +52,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><!-- <i class="fa fa-hashtag me-2"></i> --> STOCK</h3>
+                    <h3 class="text-primary"><!-- <i class="fa fa-hashtag me-2"></i> --> G-STOCK</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -119,12 +119,12 @@
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
-                        <table id="usersTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table id="dashboardTable" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col">Code Agent</th>
-                                    <th scope="col">Nom d'utilisateur</th>
-                                    <th scope="col">type de compte</th>
+                                    <!-- <th scope="col">Code Agent</th> -->
+                                    <!-- <th scope="col">Nom d'utilisateur</th> -->
+                                    <!-- <th scope="col">type de compte</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,12 +144,12 @@
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
-                        <table id="usersTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table id="stockTable" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col">Code Agent</th>
-                                    <th scope="col">Nom d'utilisateur</th>
-                                    <th scope="col">type de compte</th>
+                                    <!-- <th scope="col">Code Agent</th> -->
+                                    <!-- <th scope="col">Nom d'utilisateur</th> -->
+                                    <!-- <th scope="col">Type de compte</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -165,8 +165,12 @@
             <div id="userContent" class="container-fluid pt-4 px-4" hidden>
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Liste des clients3</h6>
+                        <h6 class="mb-0">Liste des clients</h6>
                         <!-- <a href="">Show All</a> -->
+                        <button id="openUserModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
+                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myUserModal">
+                            <i class="fa fa-plus me-2"></i> Ajouter
+                        </button> -->
                     </div>
                     <div class="table-responsive">
                         <table id="usersTable" class="table text-start align-middle table-bordered table-hover mb-0">
@@ -175,6 +179,7 @@
                                     <th scope="col">Code Agent</th>
                                     <th scope="col">Nom d'utilisateur</th>
                                     <th scope="col">type de compte</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,23 +188,119 @@
                         </table>
                     </div>
                 </div>
+                
             </div>
+            <!-- Modal création utilisateur-->
+                <div class="modal fade" id="myUserModal" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Ajouter un utilisateur</h5>
+                            <button id="closeUserModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <!-- Formulaire -->
+                            <form>
+                                <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="codeAgentForm" placeholder="Code Agent">
+                                </div>
+                                <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                </div>
+                                <div class="mb-3">
+                                <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
+                                <select class="form-select" id="typeCompte">
+                                    <option value="administrateur">Administrateur</option>
+                                    <option value="agent">Agent</option>
+                                </select>
+                                </div>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal modification utilisateur-->
+                <div class="modal fade" id="myUserModalUpdate" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Modifier un utilisateur</h5>
+                            <button id="closeUserModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <!-- Formulaire -->
+                            <form>
+                                <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="codeAgentForm" placeholder="Code Agent">
+                                </div>
+                                <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                </div>
+                                <div class="mb-3">
+                                <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
+                                <select class="form-select" id="typeCompte">
+                                    <option value="administrateur">Administrateur</option>
+                                    <option value="agent">Agent</option>
+                                </select>
+                                </div>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             <!-- Gestion utilisateur End -->
 
             <!-- Gestion client et fournisseur Start -->
             <div id="clientFournisseurContent" class="container-fluid pt-4 px-4" hidden>
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Liste des clients4</h6>
+                        <h6 class="mb-0">Liste des clients</h6>
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
-                        <table id="usersTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table id="clientTable" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col">Code Agent</th>
-                                    <th scope="col">Nom d'utilisateur</th>
-                                    <th scope="col">type de compte</th>
+                                    <th scope="col">Noms</th>
+                                    <th scope="col">Prénoms</th>
+                                    <th scope="col">Contacts</th>
+                                    <th scope="col">Code client</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Liste des fournisseurs</h6>
+                        <!-- <a href="">Show All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table id="fournisseurTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Noms</th>
+                                    <th scope="col">Prénoms</th>
+                                    <th scope="col">Contacts</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

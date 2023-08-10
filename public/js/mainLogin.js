@@ -67,7 +67,8 @@
                 }
             })
             .catch((error) => {
-                message.textContent = "Une erreur s'est produite lors de la connexion.";
+                let message = "Une erreur s'est produite lors de la connexion.";
+                alert(message);
                 console.error("Error:", error);
                 $('#loading-overlay').removeClass('show');
             });
