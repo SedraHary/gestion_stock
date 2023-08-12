@@ -378,7 +378,7 @@
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
-                        <table id="fournisseurTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table id="fournisseursTable" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
                                     <th scope="col">Noms</th>
@@ -391,6 +391,140 @@
                                 
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal création fournisseur-->
+            <div class="modal fade" id="myFournisseurModal" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Ajouter un fournisseur</h5>
+                        <button id="closeFournisseurModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomFournisseurAdd" placeholder="Nom">
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="prenomFournisseurAdd" placeholder="Prénom">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="fournisseurContactAdd" placeholder="Contact">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" id="saveFournisseur" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal modification fournisseur-->
+            <div class="modal fade" id="myFournisseurModalUpdate" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Modifier un fournisseur</h5>
+                        <button id="closeFournisseurModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomFournisseurUpdate" placeholder="Nom">
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="prenomFournisseurUpdate" placeholder="Prénom">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="fournisseurContactUpdate" placeholder="Contact">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button id="updateFournisseur" type="button" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal création client-->
+            <div class="modal fade" id="myClientModal" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Ajouter un client</h5>
+                        <button id="closeClientModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomClientAdd" placeholder="Nom">
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="prenomClientAdd" placeholder="Prénom">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="ClientContactAdd" placeholder="Contact">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="clientCodeAdd" placeholder="Code client">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" id="saveClient" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal modification client-->
+            <div class="modal fade" id="myClientModalUpdate" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Modifier un client</h5>
+                        <button id="closeClientModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                <input type="text" class="form-control" id="nomClientUpdate" placeholder="Nom">
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="prenomClientUpdate" placeholder="Prénom">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="ClientContactUpdate" placeholder="Contact">
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                <input type="text" class="form-control" id="clientCodeUpdate" placeholder="Code client">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button id="updateClient" type="button" class="btn btn-primary">Enregistrer</button>
+                        </div>
                     </div>
                 </div>
             </div>

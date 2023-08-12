@@ -103,6 +103,7 @@
             $("#typeCompteUpdate").val(user.userType);
             $("#passwordUtilisateurUpdate").val(user.userPassword);       
         });
+        //Modifier l'utilisateur
         $("#updateUser").on('click', function (){
             let code = $("#codeAgentUpdate").val();
             let nom = $("#nomUtilisateurUpdate").val();
