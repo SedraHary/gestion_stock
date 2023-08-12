@@ -115,7 +115,7 @@
             <div id="bordContent" class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Liste des clients1</h6>
+                        <h6 class="mb-0">Tableau de bord</h6>
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
@@ -140,16 +140,22 @@
             <div id="stockContent" class="container-fluid pt-4 px-4" hidden>
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Liste des clients2</h6>
+                        <h6 class="mb-0">Liste des articles</h6>
+                        <button id="openStockModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
                         <table id="stockTable" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <!-- <th scope="col">Code Agent</th> -->
-                                    <!-- <th scope="col">Nom d'utilisateur</th> -->
-                                    <!-- <th scope="col">Type de compte</th> -->
+                                    <th scope="col">Famille d'article</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Detail</th>
+                                    <th scope="col">Unité</th>
+                                    <th scope="col">PV Det</th>
+                                    <th scope="col">PV Gros</th>
+                                    <th scope="col">PV REV</th>
+                                    <th scope="col">PA</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,13 +165,81 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal création article-->
+            <div class="modal fade" id="myStockModal" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Ajouter un article</h5>
+                        <button id="closeStockModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                            <input type="text" class="form-control" id="idd" placeholder="Code Agent">
+                            </div>
+                            <div class="mb-3">
+                            <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                            </div>
+                            <div class="mb-3">
+                            <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
+                            <select class="form-select" id="typeCompte">
+                                <option value="administrateur">Administrateur</option>
+                                <option value="agent">Agent</option>
+                            </select>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal modification Stock-->
+            <div class="modal fade" id="myStockModalUpdate" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Modifier un utilisateur</h5>
+                        <button id="closeStockModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        <form>
+                            <div class="mb-3">
+                            <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                            <input type="text" class="form-control" id="idd" placeholder="Code Agent">
+                            </div>
+                            <div class="mb-3">
+                            <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                            <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                            </div>
+                            <div class="mb-3">
+                            <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
+                            <select class="form-select" id="typeCompte">
+                                <option value="administrateur">Administrateur</option>
+                                <option value="agent">Agent</option>
+                            </select>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Gestion stock End -->
 
             <!-- Gestion utilisateur Start -->
             <div id="userContent" class="container-fluid pt-4 px-4" hidden>
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Liste des clients</h6>
+                        <h6 class="mb-0">Liste des utilisateurs</h6>
                         <!-- <a href="">Show All</a> -->
                         <button id="openUserModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
                         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myUserModal">
@@ -202,25 +276,29 @@
                             <!-- Formulaire -->
                             <form>
                                 <div class="mb-3">
-                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
-                                <input type="text" class="form-control" id="codeAgentForm" placeholder="Code Agent">
+                                    <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                    <input type="text" class="form-control" id="codeAgentAdd" placeholder="Code Agent">
                                 </div>
                                 <div class="mb-3">
-                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
-                                <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                    <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                    <input type="text" class="form-control" id="nomUtilisateurAdd" placeholder="Nom d'utilisateur">
                                 </div>
                                 <div class="mb-3">
-                                <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
-                                <select class="form-select" id="typeCompte">
+                                    <input type="password" class="form-control" id="passwordUtilisateurAdd" placeholder="Mot de passe">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
+                                <select class="form-select" id="typeCompteAdd">
                                     <option value="administrateur">Administrateur</option>
                                     <option value="agent">Agent</option>
                                 </select>
-                                </div>
+                            </div>
                             </form>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="button" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <button type="button" id="saveUser" class="btn btn-primary">Enregistrer</button>
                             </div>
                         </div>
                     </div>
@@ -237,16 +315,20 @@
                             <!-- Formulaire -->
                             <form>
                                 <div class="mb-3">
-                                <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
-                                <input type="text" class="form-control" id="codeAgentForm" placeholder="Code Agent">
+                                    <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
+                                    <input type="text" class="form-control" id="codeAgentUpdate" placeholder="Code Agent">
                                 </div>
                                 <div class="mb-3">
-                                <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
-                                <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                    <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                    <input type="text" class="form-control" id="nomUtilisateurUpdate" placeholder="Nom d'utilisateur">
+                                </div>
+                                <div class="mb-3">
+                                    <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
+                                    <input type="text" class="form-control" id="passwordUtilisateurUpdate" placeholder="Mot de passe">
                                 </div>
                                 <div class="mb-3">
                                 <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
-                                <select class="form-select" id="typeCompte">
+                                <select class="form-select" id="typeCompteUpdate">
                                     <option value="administrateur">Administrateur</option>
                                     <option value="agent">Agent</option>
                                 </select>
@@ -254,7 +336,7 @@
                             </form>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                             <button type="button" class="btn btn-primary">Enregistrer</button>
                             </div>
                         </div>
@@ -268,6 +350,7 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Liste des clients</h6>
+                        <button id="openClientModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
@@ -291,6 +374,7 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Liste des fournisseurs</h6>
+                        <button id="openFournisseurModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
                         <!-- <a href="">Show All</a> -->
                     </div>
                     <div class="table-responsive">
@@ -435,6 +519,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/article.js"></script>
+    <script src="js/ClientFournisseur.js"></script>
     
 </body>
 

@@ -6,7 +6,7 @@ class CustomerRepository {
     try {
       const result = await db.query('SELECT * FROM public.customer');
       //TODO:replace field database
-      return result.rows.map((row) => new Customer(row.customerid, row.customeragentcode, row.customername, row.customertype, row.password));
+      return result.rows.map((row) => new Customer(row.customerid, row.customername, row.customerlastname, row.customer_contact, row.customercode));
     } catch (err) {
       console.error('Error fetching customers:', err);
       throw new Error('Internal server error');

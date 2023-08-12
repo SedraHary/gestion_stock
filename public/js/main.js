@@ -35,7 +35,6 @@
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
             });
-            // console.log(data)
         })
         .catch((error) => {
             let message = "Une erreur s'est produite lors de la connexion.";
@@ -47,13 +46,65 @@
         //Afficher formulaire d'ajout utilisateur
         $("#openUserModal").click(function() {
             $("#myUserModal").modal("show");
-          });
+        });
 
+        //Enregistrement utilisateur
+        $("#saveUser").click(function() {
+           let code = $("#codeAgentAdd").val();
+           let nom = $("#nomUtilisateurAdd").val();
+           let typeCompte = $("#typeCompteAdd").val();
+           let mdp = $("#passwordUtilisateurAdd").val();
+           console.log(code,nom,typeCompte, mdp);
+           var dataToSend = {
+                userAgentCode: code,
+                userName: nom,
+                userType: typeCompte,
+                password: mdp
+            };
+
+            fetch("/api/addUser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Utilisateur créé.');
+                $("#myUserModal").modal("hide");
+
+                // Créer le tableau HTML
+                const tableauResultat = $('#usersTable');
+                data.forEach(user => {
+                    const ligne = $('<tr>');
+                    ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
+                    ligne.append('<td>' + user.userAgentCode + '</td>');
+                    ligne.append('<td>' + user.userName + '</td>');
+                    ligne.append('<td>' + user.userType + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    // ligne.append('</tr>')
+                    tableauResultat.append(ligne);
+                });
+                // console.log("Réponse du serveur :", data);
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+            });
+        });
         //Afficher formulaire de modification utilisateur
         $("#usersTable").on('click', '.edit-btn',function() {
             $("#myUserModalUpdate").modal("show");
             var ligne = $(this).closest('tr');
             var user = ligne.data('user');
+            $("#codeAgentUpdate").val(user.userAgentCode);
+            $("#nomUtilisateurUpdate").val(user.userName);
+            $("#typeCompteUpdate").val(user.userType);
+            $("#passwordUtilisateurUpdate").val(user.userPassword);
+            let code = $("#codeAgentUpdate").val();
+            let nom = $("#nomUtilisateurUpdate").val();
+            let typeCompte = $("#typeCompteUpdate").val();
+            let mdp = $("#passwordUtilisateurUpdate").val();
             console.log(user);
           });
     

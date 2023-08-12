@@ -21,7 +21,19 @@ const getUserLoged = async (req, res) => {
   }
 };
 
+const addUser = async (req, res) => {
+  try {
+    const user = req.body;
+    const userResponse = await userRepository.addUser(user.userAgentCode, user.userName, user.userType, user.password);
+    res.status(200).json(userResponse);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getUsers,
-  getUserLoged
+  getUserLoged,
+  addUser
 };
