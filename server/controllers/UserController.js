@@ -32,8 +32,32 @@ const addUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const user = req.body;
+    const userResponse = await userRepository.deleteUser(user.userId);
+    res.status(200).json(userResponse);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const user = req.body;
+    const userResponse = await userRepository.updateUser(user.userId, user.userAgentCode, user.userName, user.userType, user.password);
+    res.status(200).json(userResponse);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getUsers,
   getUserLoged,
-  addUser
+  addUser,
+  deleteUser,
+  updateUser
 };

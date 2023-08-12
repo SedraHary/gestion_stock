@@ -54,7 +54,6 @@
            let nom = $("#nomUtilisateurAdd").val();
            let typeCompte = $("#typeCompteAdd").val();
            let mdp = $("#passwordUtilisateurAdd").val();
-           console.log(code,nom,typeCompte, mdp);
            var dataToSend = {
                 userAgentCode: code,
                 userName: nom,
@@ -76,6 +75,7 @@
 
                 // Créer le tableau HTML
                 const tableauResultat = $('#usersTable');
+                $('#usersTable tr').remove();
                 data.forEach(user => {
                     const ligne = $('<tr>');
                     ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
@@ -97,16 +97,56 @@
             $("#myUserModalUpdate").modal("show");
             var ligne = $(this).closest('tr');
             var user = ligne.data('user');
+            sessionStorage.setItem("userSelectedId", user.userId);
             $("#codeAgentUpdate").val(user.userAgentCode);
             $("#nomUtilisateurUpdate").val(user.userName);
             $("#typeCompteUpdate").val(user.userType);
-            $("#passwordUtilisateurUpdate").val(user.userPassword);
+            $("#passwordUtilisateurUpdate").val(user.userPassword);       
+        });
+        $("#updateUser").on('click', function (){
             let code = $("#codeAgentUpdate").val();
             let nom = $("#nomUtilisateurUpdate").val();
             let typeCompte = $("#typeCompteUpdate").val();
             let mdp = $("#passwordUtilisateurUpdate").val();
-            console.log(user);
-          });
+            let userId = sessionStorage.getItem("userSelectedId");
+            var newUser = {
+                userId: userId,
+                userAgentCode: code,
+                userName: nom,
+                userType: typeCompte,
+                password: mdp
+            };
+            
+            fetch("/api/updateUser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newUser)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Modification enregistré.');
+                $("#myUserModalUpdate").modal("hide");
+
+                // Créer le tableau HTML
+                const tableauResultat = $('#usersTable');
+                $('#usersTable tr').remove();
+                data.forEach(user => {
+                    const ligne = $('<tr>');
+                    ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
+                    ligne.append('<td>' + user.userAgentCode + '</td>');
+                    ligne.append('<td>' + user.userName + '</td>');
+                    ligne.append('<td>' + user.userType + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    // ligne.append('</tr>')
+                    tableauResultat.append(ligne);
+                });
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+            });
+        })
     
           // Fermer le formulaire d'ajout utilisateur
           $("#closeUserModal").click(function() {
@@ -116,7 +156,49 @@
         $('#usersTable').on('click', '.delete-btn', function(event) {
             var ligne = $(this).closest('tr');
             var user = ligne.data('user');
-            console.log(user);
+            var connectedUser= sessionStorage.getItem('userId');
+            if(connectedUser===user.userId.toString()){
+                alert("Vous ne pouvez pas supprimer votre propre compte.");
+            }else{
+                var newUser = {
+                    userId: user.userId
+                };
+                if (confirm("Êtes-vous sûr de supprimer cet utilisateur ?")) {
+                    // Code à exécuter si l'utilisateur clique sur "OK"
+                    fetch("/api/deleteUser", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(newUser)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('Modification enregistré.');
+                        $("#myUserModalUpdate").modal("hide");
+        
+                        // Créer le tableau HTML
+                        const tableauResultat = $('#usersTable');
+                        $('#usersTable tr').remove();
+                        data.forEach(user => {
+                            const ligne = $('<tr>');
+                            ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
+                            ligne.append('<td>' + user.userAgentCode + '</td>');
+                            ligne.append('<td>' + user.userName + '</td>');
+                            ligne.append('<td>' + user.userType + '</td>');
+                            ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                            // ligne.append('</tr>')
+                            tableauResultat.append(ligne);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Erreur :", error);
+                    });
+    
+                } else {
+                    // Code à exécuter si l'utilisateur clique sur "Annuler"
+                }
+            }
         });
 
         //Création fature
