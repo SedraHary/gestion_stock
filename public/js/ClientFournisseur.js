@@ -127,12 +127,12 @@
         $("#fournisseursTable").on('click', '.edit-btn',function() {
             $("#myFournisseurModalUpdate").modal("show");
             var ligne = $(this).closest('tr');
-            var fournisseur = ligne.data('fournisseur');console.log(fournisseur)
+            var fournisseur = ligne.data('fournisseur');
             sessionStorage.setItem("fournisseurSelectedId", fournisseur.supplierId);
             $("#nomFournisseurUpdate").val(fournisseur.supplierName);
             $("#prenomFournisseurUpdate").val(fournisseur.supplierLastName);
             $("#fournisseurContactUpdate").val(fournisseur.supplierContact);
-          });
+        });
           //Modifier le fournisseur
           $("#updateFournisseur").on('click', function (){
             let nom = $("#nomFournisseurUpdate").val();
@@ -229,22 +229,73 @@
           });
 
         //Afficher formulaire de modification Client
-        $("#ClientsTable").on('click', '.edit-btn',function() {
+        $("#clientTable").on('click', '.edit-btn',function() {
             $("#myClientModalUpdate").modal("show");
             var ligne = $(this).closest('tr');
-            var Client = ligne.data('Client');
-            console.log(Client);
+            var client = ligne.data('client');
+            sessionStorage.setItem("clientSelectedId", client.customerId);
+            $("#nomClientUpdate").val(client.customerName);
+            $("#prenomClientUpdate").val(client.customerLastName);
+            $("#clientContactUpdate").val(client.customerContact);
+            $("#clientCodeUpdate").val(client.customerCode);
           });
-    
+          
+          //Modifier le client
+          $("#updateClient").on('click', function (){
+            let nom = $("#nomClientUpdate").val();
+            let prenom = $("#prenomClientUpdate").val();
+            let contact = $("#clientContactUpdate").val();
+            let code = $("#clientCodeUpdate").val();
+            let clientId = sessionStorage.getItem("clientSelectedId");
+            var newClient = {
+                customerId: clientId,
+                customerName: nom,
+                customerLastName: prenom,
+                customerContact: contact,
+                customerCode: code
+            };
+            
+            fetch("/api/updateCustomer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newClient)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Modification enregistré.');
+                $("#myClientModalUpdate").modal("hide");
+
+                // Créer le tableau HTML
+                const tableauResultat = $('#clientTable');
+                $('#clientTable tr').remove();
+                data.forEach(client => {
+                    const ligne = $('<tr>');
+                    ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
+                    ligne.append('<td>' + client.customerName + '</td>');
+                    ligne.append('<td>' + client.customerLastName + '</td>');
+                    ligne.append('<td>' + client.customerContact + '</td>');
+                    ligne.append('<td>' + client.customerCode + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    // ligne.append('</tr>')
+                    tableauResultat.append(ligne); 
+                });
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+            });
+        })
+
           // Fermer le formulaire d'ajout Client
           $("#closeClientModal").click(function() {
             $("#myClientModal").modal("hide");
           });
         //Suppression Client
-        $('#ClientsTable').on('click', '.delete-btn', function(event) {
+        $('#clientTable').on('click', '.delete-btn', function(event) {
             var ligne = $(this).closest('tr');
-            var Client = ligne.data('Client');
-            console.log(Client);
+            var client = ligne.data('client');
+            console.log(client);
         });
 
     });

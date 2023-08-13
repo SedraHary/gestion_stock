@@ -37,9 +37,9 @@ class CustomerRepository {
 
   async updateCustomer(customerId, customerName, customerlastName, customerContact,customerCode) {
     try {
-      await db.query(`UPDATE public.customer SET customername=${customerName}, customerlastname='${customerlastName}', customer_contact='${customerContact}', customer_contact='${customerCode}' WHERE customerid='${customerId}';`);
-      const result = await db.query('SELECT customerid, customername, customerlastname, customer_contact FROM public.customer');
-      return result.rows.map((row) => new Customer(row.customerid, row.customername, row.customerlastname, row.customer_contact));
+      await db.query(`UPDATE public.customer SET customername='${customerName}', customerlastname='${customerlastName}', customer_contact='${customerContact}', customercode='${customerCode}' WHERE customerid='${customerId}';`);
+      const result = await db.query('SELECT customerid, customername, customerlastname, customer_contact, customercode FROM public.customer');
+      return result.rows.map((row) => new Customer(row.customerid, row.customername, row.customerlastname, row.customer_contact, row.customercode));
     } catch (err) {
       console.error('Error fetching customer:', err);
       throw new Error('Internal server error');
