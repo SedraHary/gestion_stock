@@ -4,8 +4,8 @@ const supplierController = require('../controllers/SupplierController');
 const router = express.Router();
 
 router.get('/suppliers', supplierController.getSuppliers);
-router.get('/deleteSupplier', supplierController.deleteSupplier);
-router.get('/updateSupplier', supplierController.updateSupplier);
-router.get('/addSupplier', supplierController.addSupplier);
+router.post('/deleteSupplier', supplierController.deleteSupplier);
+router.post('/updateSupplier', supplierController.updateSupplier);
+router.post('/addSupplier', supplierController.addSupplier);
 
 module.exports = router;

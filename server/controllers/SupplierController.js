@@ -13,7 +13,7 @@ const getSuppliers = async (req, res) => {
 const addSupplier = async (req, res) => {
   try {
     const supplier = req.body;
-    const supplierResponse = await supplierRepository.addSupplier(supplier.supplierName, supplier.supplierLastName, supplier.supplierContact);
+    const supplierResponse = await supplierRepository.addSupplier(supplier.fournisseurName, supplier.fournisseurLastName, supplier.fournisseurContact);
     res.status(200).json(supplierResponse);
   } catch (err) {
     console.error('Error adding supplier:', err);
@@ -24,7 +24,7 @@ const addSupplier = async (req, res) => {
 const deleteSupplier = async (req, res) => {
   try {
     const supplier = req.body;
-    const supplierResponse = await supplierRepository.deleteSupplier(supplier.supplierId);
+    const supplierResponse = await supplierRepository.deleteSupplier(supplier.fournisseurId);
     res.status(200).json(supplierResponse);
   } catch (err) {
     console.error('Error deleting supplier:', err);
@@ -35,7 +35,7 @@ const deleteSupplier = async (req, res) => {
 const updateSupplier = async (req, res) => {
   try {
     const supplier = req.body;
-    const supplierResponse = await supplierRepository.updateSupplier(supplier.supplierId, supplier.supplierName, supplier.supplierLastName, supplier.supplierContact);
+    const supplierResponse = await supplierRepository.updateSupplier(supplier.fournisseurId, supplier.fournisseurName, supplier.fournisseurLastName, supplier.fournisseurContact);
     res.status(200).json(supplierResponse);
   } catch (err) {
     console.error('Error updating supplier:', err);

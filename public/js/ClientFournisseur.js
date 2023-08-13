@@ -20,7 +20,7 @@
         })
         .then((data) => {
             // Créer le tableau HTML
-            const tableauResultat = $('#fournisseurTable');
+            const tableauResultat = $('#fournisseursTable');
             data.forEach(fournisseur => {
                 const ligne = $('<tr>');
                 ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
@@ -76,8 +76,8 @@
         });
 
         //Afficher formulaire d'ajout fournisseur
-        $("#openfournisseurModal").click(function() {
-            $("#myfournisseurModal").modal("show");
+        $("#openFournisseurModal").click(function() {
+            $("#myFournisseurModal").modal("show");
         });
         
         //Enregistrement fournisseur
@@ -115,7 +115,7 @@
                     ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
-                 });
+                });
                  // console.log("Réponse du serveur :", data);
              })
              .catch(error => {
@@ -125,13 +125,13 @@
 
         //Afficher formulaire de modification fournisseur
         $("#fournisseursTable").on('click', '.edit-btn',function() {
-            $("#myfournisseurModalUpdate").modal("show");
+            $("#myFournisseurModalUpdate").modal("show");
             var ligne = $(this).closest('tr');
-            var fournisseur = ligne.data('fournisseur');
-            sessionStorage.setItem("fournisseurSelectedId", fournisseur.fournisseurId);
-            $("#nomFournisseurUpdate").val(fournisseur.fournisseurName);
-            $("#prenomFournisseurUpdate").val(fournisseur.fournisseurLastName);
-            $("#fournisseurContactUpdate").val(fournisseur.fournisseurContact);
+            var fournisseur = ligne.data('fournisseur');console.log(fournisseur)
+            sessionStorage.setItem("fournisseurSelectedId", fournisseur.supplierId);
+            $("#nomFournisseurUpdate").val(fournisseur.supplierName);
+            $("#prenomFournisseurUpdate").val(fournisseur.supplierLastName);
+            $("#fournisseurContactUpdate").val(fournisseur.supplierContact);
           });
           //Modifier le fournisseur
           $("#updateFournisseur").on('click', function (){
@@ -185,7 +185,42 @@
         $('#fournisseursTable').on('click', '.delete-btn', function(event) {
             var ligne = $(this).closest('tr');
             var fournisseur = ligne.data('fournisseur');
-            console.log(fournisseur);
+            var newFournisseur = {
+                fournisseurId: fournisseur.supplierId
+            };
+            if (confirm("Êtes-vous sûr de supprimer ce fournisseur ?")) {
+                fetch("/api/deleteSupplier", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newFournisseur)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Modification enregistré.');
+                    $("#myFournisseurModalUpdate").modal("hide");
+    
+                    // Créer le tableau HTML
+                    const tableauResultat = $('#fournisseursTable');
+                    $('#fournisseursTable tr').remove();
+                    data.forEach(fournisseur => {
+                        const ligne = $('<tr>');
+                        ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
+                        ligne.append('<td>' + fournisseur.supplierName + '</td>');
+                        ligne.append('<td>' + fournisseur.supplierLastName + '</td>');
+                        ligne.append('<td>' + fournisseur.supplierContact + '</td>');
+                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                        tableauResultat.append(ligne);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                });
+
+            } else {
+                // Code à exécuter si l'utilisateur clique sur "Annuler"
+            }
         });
 
         //Afficher formulaire d'ajout Client

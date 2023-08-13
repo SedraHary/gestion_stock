@@ -37,7 +37,7 @@ class SupplierRepository {
 
   async updateSupplier(supplierId, supplierName, supplierlastName, supplierContact) {
     try {
-      await db.query(`UPDATE public.supplier SET suppliername=${supplierName}, supplierlastname='${supplierlastName}', supplier_contact='${supplierContact}' WHERE supplierid='${supplierId}';`);
+      await db.query(`UPDATE public.supplier SET suppliername='${supplierName}', supplierlastname='${supplierlastName}', supplier_contact='${supplierContact}' WHERE supplierid='${supplierId}';`);
       const result = await db.query('SELECT supplierid, suppliername, supplierlastname, supplier_contact FROM public.supplier');
       return result.rows.map((row) => new Supplier(row.supplierid, row.suppliername, row.supplierlastname, row.supplier_contact));
     } catch (err) {
