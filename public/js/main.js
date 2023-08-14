@@ -24,7 +24,7 @@
         })
         .then((data) => {
             // Créer le tableau HTML
-            const tableauResultat = $('#usersTable');
+            const tableauResultat = $('#usersTable tbody');
             data.forEach(user => {
                 const ligne = $('<tr>');
                 ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
@@ -74,8 +74,8 @@
                 $("#myUserModal").modal("hide");
 
                 // Créer le tableau HTML
-                const tableauResultat = $('#usersTable');
-                $('#usersTable tr').remove();
+                const tableauResultat = $('#usersTable tbody');
+                $('#usersTable tbody tr').remove();
                 data.forEach(user => {
                     const ligne = $('<tr>');
                     ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
@@ -131,8 +131,8 @@
                 $("#myUserModalUpdate").modal("hide");
 
                 // Créer le tableau HTML
-                const tableauResultat = $('#usersTable');
-                $('#usersTable tr').remove();
+                const tableauResultat = $('#usersTable tbody');
+                $('#usersTable tbody tr').remove();
                 data.forEach(user => {
                     const ligne = $('<tr>');
                     ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id
@@ -179,8 +179,8 @@
                         $("#myUserModalUpdate").modal("hide");
         
                         // Créer le tableau HTML
-                        const tableauResultat = $('#usersTable');
-                        $('#usersTable tr').remove();
+                        const tableauResultat = $('#usersTable tbody');
+                        $('#usersTable tbody tr').remove();
                         data.forEach(user => {
                             const ligne = $('<tr>');
                             ligne.data('user', user); // Stocker l'identifiant dans l'attribut data-id

@@ -20,7 +20,7 @@
         })
         .then((data) => {
             // Créer le tableau HTML
-            const tableauResultat = $('#fournisseursTable');
+            const tableauResultat = $('#fournisseursTable tbody');
             data.forEach(fournisseur => {
                 const ligne = $('<tr>');
                 ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
@@ -55,7 +55,7 @@
         })
         .then((data) => {
             // Créer le tableau HTML
-            const tableauResultat = $('#clientTable');
+            const tableauResultat = $('#clientTable tbody');
             data.forEach(client => {
                 const ligne = $('<tr>');
                 ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
@@ -104,8 +104,8 @@
                  $("#myFournisseurModal").modal("hide");
  
                  // Créer le tableau HTML
-                 const tableauResultat = $('#fournisseursTable');
-                 $('#fournisseursTable tr').remove();
+                 const tableauResultat = $('#fournisseursTable tbody');
+                 $('#fournisseursTable tbody tr').remove();
                  data.forEach(fournisseur => {
                     const ligne = $('<tr>');
                     ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
@@ -159,8 +159,8 @@
                 $("#myFournisseurModalUpdate").modal("hide");
 
                 // Créer le tableau HTML
-                const tableauResultat = $('#fournisseursTable');
-                $('#fournisseursTable tr').remove();
+                const tableauResultat = $('#fournisseursTable tbody');
+                $('#fournisseursTable tbody tr').remove();
                 data.forEach(fournisseur => {
                     const ligne = $('<tr>');
                     ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
@@ -202,8 +202,8 @@
                     $("#myFournisseurModalUpdate").modal("hide");
     
                     // Créer le tableau HTML
-                    const tableauResultat = $('#fournisseursTable');
-                    $('#fournisseursTable tr').remove();
+                    const tableauResultat = $('#fournisseursTable tbody');
+                    $('#fournisseursTable tbody tr').remove();
                     data.forEach(fournisseur => {
                         const ligne = $('<tr>');
                         ligne.data('fournisseur', fournisseur); // Stocker l'identifiant dans l'attribut data-id
@@ -226,7 +226,52 @@
         //Afficher formulaire d'ajout Client
         $("#openClientModal").click(function() {
             $("#myClientModal").modal("show");
-          });
+        });
+
+        //Enregistrement client
+        $("#saveClient").click(function() {
+            let nom = $("#nomClientAdd").val();
+            let prenom = $("#prenomClientAdd").val();
+            let contact = $("#clientContactAdd").val();
+            let code = $("#clientCodeAdd").val();
+            var dataToSend = {
+                customerName: nom,
+                customerLastName: prenom,
+                customerContact: contact,
+                customerCode: code
+             };
+             fetch("/api/addCustomer", {
+                 method: "POST",
+                 headers: {
+                     "Content-Type": "application/json"
+                 },
+                 body: JSON.stringify(dataToSend)
+             })
+             .then(response => response.json())
+             .then(data => {
+                 alert('Client ajouté.');
+                 $("#myClientModal").modal("hide");
+ 
+                 // Créer le tableau HTML
+                const tableauResultat = $('#clientTable tbody');
+                $('#clientTable tbody tr').remove();
+                data.forEach(client => {console.log(client)
+                    const ligne = $('<tr>');
+                    ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
+                    ligne.append('<td>' + client.customerName + '</td>');
+                    ligne.append('<td>' + client.customerLastName + '</td>');
+                    ligne.append('<td>' + client.customerContact + '</td>');
+                    ligne.append('<td>' + client.customerCode + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    // ligne.append('</tr>')
+                    tableauResultat.append(ligne);
+                });
+                 // console.log("Réponse du serveur :", data);
+             })
+             .catch(error => {
+                 console.error("Erreur :", error);
+             });
+        });
 
         //Afficher formulaire de modification Client
         $("#clientTable").on('click', '.edit-btn',function() {
@@ -268,8 +313,8 @@
                 $("#myClientModalUpdate").modal("hide");
 
                 // Créer le tableau HTML
-                const tableauResultat = $('#clientTable');
-                $('#clientTable tr').remove();
+                const tableauResultat = $('#clientTable tbody');
+                $('#clientTable tbody tr').remove();
                 data.forEach(client => {
                     const ligne = $('<tr>');
                     ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
@@ -291,11 +336,48 @@
           $("#closeClientModal").click(function() {
             $("#myClientModal").modal("hide");
           });
+
         //Suppression Client
         $('#clientTable').on('click', '.delete-btn', function(event) {
             var ligne = $(this).closest('tr');
             var client = ligne.data('client');
-            console.log(client);
+            var newClient = {
+                customerId: client.customerId,
+            };
+            if (confirm("Êtes-vous sûr de supprimer ce client ?")) {
+                fetch("/api/deleteCustomer", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newClient)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Modification enregistré.');
+                    $("#myclientModalUpdate").modal("hide");
+    
+                    // Créer le tableau HTML
+                    const tableauResultat = $('#clientTable tbody');
+                    $('#clientTable tbody tr').remove();
+                    data.forEach(client => {
+                        const ligne = $('<tr>');
+                        ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
+                        ligne.append('<td>' + client.customerName + '</td>');
+                        ligne.append('<td>' + client.customerLastName + '</td>');
+                        ligne.append('<td>' + client.customerContact + '</td>');
+                        ligne.append('<td>' + client.customerCode + '</td>');
+                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                        tableauResultat.append(ligne);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                });
+
+            } else {
+                // Code à exécuter si l'utilisateur clique sur "Annuler"
+            }
         });
 
     });

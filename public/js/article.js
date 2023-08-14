@@ -20,7 +20,7 @@
         })
         .then((data) => {
             // Créer le tableau HTML
-            const tableauResultat = $('#stockTable');
+            const tableauResultat = $('#stockTable tbody');
             data.forEach(article => {
                 const ligne = $('<tr>');
                 ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id

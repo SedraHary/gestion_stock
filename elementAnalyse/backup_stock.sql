@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.0
--- Dumped by pg_dump version 14.0
+-- Dumped from database version 13.11
+-- Dumped by pg_dump version 13.11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -142,7 +142,9 @@ ALTER SEQUENCE public.bill_detail_bill_detail_id_seq OWNED BY public.bill_detail
 CREATE TABLE public.customer (
     customerid integer NOT NULL,
     customername character varying(100) NOT NULL,
-    customerlastname character varying(100)
+    customerlastname character varying(100),
+    customer_contact character varying(21),
+    customercode character varying(10)
 );
 
 
@@ -248,7 +250,8 @@ ALTER SEQUENCE public.store_storeid_seq OWNED BY public.store.storeid;
 CREATE TABLE public.supplier (
     supplierid integer NOT NULL,
     suppliername character varying(100) NOT NULL,
-    supplierlastname character varying(100)
+    supplierlastname character varying(100),
+    supplier_contact character varying(21)
 );
 
 
@@ -445,7 +448,8 @@ COPY public.bill_detail (bill_detail_id, quantity, unite_price, amount, bill_id,
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customerid, customername, customerlastname) FROM stdin;
+COPY public.customer (customerid, customername, customerlastname, customer_contact, customercode) FROM stdin;
+1	RANAIVO	Richard2	0324367489	000004
 \.
 
 
@@ -469,7 +473,9 @@ COPY public.store (storeid, storename) FROM stdin;
 -- Data for Name: supplier; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.supplier (supplierid, suppliername, supplierlastname) FROM stdin;
+COPY public.supplier (supplierid, suppliername, supplierlastname, supplier_contact) FROM stdin;
+1	RAKOTO	Bernard	0324165478
+3	testF2	testeee	34254355
 \.
 
 
@@ -6966,8 +6972,8 @@ COPY public.test (testid, articlefamily, articlename, articledetail, articleunit
 --
 
 COPY public."user" (userid, useragentcode, username, usertype, password) FROM stdin;
-1	001	admin	admin	admin
-2	001	test	admin	test
+3	001	sedra	agent	123456
+2	12	test	admin	
 \.
 
 
@@ -6996,7 +7002,7 @@ SELECT pg_catalog.setval('public.bill_detail_bill_detail_id_seq', 1, false);
 -- Name: customer_customerid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_customerid_seq', 1, false);
+SELECT pg_catalog.setval('public.customer_customerid_seq', 10, true);
 
 
 --
@@ -7017,7 +7023,7 @@ SELECT pg_catalog.setval('public.store_storeid_seq', 1, false);
 -- Name: supplier_supplierid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.supplier_supplierid_seq', 1, false);
+SELECT pg_catalog.setval('public.supplier_supplierid_seq', 4, true);
 
 
 --
@@ -7031,7 +7037,7 @@ SELECT pg_catalog.setval('public.test_testid_seq', 13367, true);
 -- Name: user_userid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_userid_seq', 2, true);
+SELECT pg_catalog.setval('public.user_userid_seq', 10, true);
 
 
 --
