@@ -46,7 +46,7 @@ class UserRepository {
 
   async updateUser(userId, userAgentCode, userName, userType, password) {
     try {
-      await db.query(`UPDATE public.user SET useragentcode=${userAgentCode}, username='${userName}', usertype='${userType}', password='${password}' WHERE userid='${userId}';`);
+      await db.query(`UPDATE public.user SET useragentcode='${userAgentCode}', username='${userName}', usertype='${userType}', password='${password}' WHERE userid='${userId}';`);
       const result = await db.query('SELECT userid,useragentcode,username,usertype FROM public.user');
       return result.rows.map((row) => new User(row.userid, row.useragentcode, row.username, row.usertype, row.password));
     } catch (err) {

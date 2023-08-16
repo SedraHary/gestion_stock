@@ -156,6 +156,7 @@
                                     <th scope="col">PV Gros</th>
                                     <th scope="col">PV REV</th>
                                     <th scope="col">PA</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -176,24 +177,36 @@
                         <div class="modal-body">
                         <!-- Formulaire -->
                         <form>
+                            
                             <div class="mb-3">
-                            <input type="text" class="form-control" id="idd" placeholder="Code Agent">
+                                <input type="text" class="form-control" id="familleArticleForm" placeholder="Fammille article">
                             </div>
                             <div class="mb-3">
-                            <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                <input type="text" class="form-control" id="nomArticleForm" placeholder="Nom article">
                             </div>
                             <div class="mb-3">
-                            <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
-                            <select class="form-select" id="typeCompte">
-                                <option value="administrateur">Administrateur</option>
-                                <option value="agent">Agent</option>
-                            </select>
+                                <input type="text" class="form-control" id="detailArticleForm" placeholder="Détail article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="uniteArticleForm" placeholder="Unité article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVDetArticleForm" placeholder="PV DET article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVGrosArticleForm" placeholder="PV GROS article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVRevArticleForm" placeholder="PV REV article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PAArticleForm" placeholder="PA article">
                             </div>
                         </form>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                        <button id="addArticle" type="button" class="btn btn-primary">Enregistrer</button>
                         </div>
                     </div>
                 </div>
@@ -203,32 +216,42 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Modifier un utilisateur</h5>
+                        <h5 class="modal-title" id="myModalLabel">Modifier un article</h5>
                         <button id="closeStockModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                         <!-- Formulaire -->
                         <form>
+                            
                             <div class="mb-3">
-                            <!-- <label for="codeAgent" class="form-label">Code Agent</label> -->
-                            <input type="text" class="form-control" id="idd" placeholder="Code Agent">
+                                <input type="text" class="form-control" id="familleArticleUpdate" placeholder="Fammille article">
                             </div>
                             <div class="mb-3">
-                            <!-- <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label> -->
-                            <input type="text" class="form-control" id="nomUtilisateurForm" placeholder="Nom d'utilisateur">
+                                <input type="text" class="form-control" id="nomArticleUpdate" placeholder="Nom article">
                             </div>
                             <div class="mb-3">
-                            <!-- <label for="typeCompte" class="form-label">Type de compte</label> -->
-                            <select class="form-select" id="typeCompte">
-                                <option value="administrateur">Administrateur</option>
-                                <option value="agent">Agent</option>
-                            </select>
+                                <input type="text" class="form-control" id="detailArticleUpdate" placeholder="Détail article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="uniteArticleUpdate" placeholder="Unité article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVDetArticleUpdate" placeholder="PV DET article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVGrosArticleUpdate" placeholder="PV GROS article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PVRevArticleUpdate" placeholder="PV REV article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="PAArticleUpdate" placeholder="PA article">
                             </div>
                         </form>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                        <button id="updateArticle" type="button" class="btn btn-primary">Enregistrer</button>
                         </div>
                     </div>
                 </div>
