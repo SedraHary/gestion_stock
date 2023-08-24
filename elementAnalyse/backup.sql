@@ -425,6 +425,8 @@ ALTER TABLE ONLY public."user" ALTER COLUMN userid SET DEFAULT nextval('public.u
 --
 
 COPY public.article (articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa) FROM stdin;
+3	test	test	test	test	3.00	2.00	5.00	7.00
+4	aaa	aaa	aaa	aaa	3.00	6.00	13.00	20.00
 \.
 
 
@@ -6972,8 +6974,8 @@ COPY public.test (testid, articlefamily, articlename, articledetail, articleunit
 --
 
 COPY public."user" (userid, useragentcode, username, usertype, password) FROM stdin;
-3	001	sedra	agent	123456
-2	12	test	admin	
+2	12	test	admin	test
+3	0001	sedra	agent	ttt
 \.
 
 
@@ -6981,7 +6983,7 @@ COPY public."user" (userid, useragentcode, username, usertype, password) FROM st
 -- Name: article_articleid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.article_articleid_seq', 1, false);
+SELECT pg_catalog.setval('public.article_articleid_seq', 5, true);
 
 
 --
