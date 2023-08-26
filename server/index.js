@@ -14,6 +14,7 @@ const fs = require("fs");
 const PDFDocument = require('pdfkit');
 
 const app = express();
+const utils = require('./utilsService');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public')));
@@ -24,7 +25,7 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
 });
 
-app.post('/generate-bill', (req, res) => {console.log(req)
+app.post('/generate-bill', (req, res) => {
   const { customerName, items } = req.body;
 
     // Create a PDF document
@@ -38,42 +39,93 @@ app.post('/generate-bill', (req, res) => {console.log(req)
     doc.pipe(res);
     
     // Customize the layout using PDFKit
-    doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), { width: 200 })
-        .text('Lot 1116K 256 Mahazoarivo Nord', 100, 100)
-        .text('0341450158 / 0330962066', 100, 130)
-        .text('qqienathan@gmail.com', 100, 160)
-        .text(`Customer: ${customerName}`, 100, 200);
+    // doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), { width: 200, align: 'center' });
+    // Calculate the X-coordinate to center the image
+    const pdfWidth = doc.page.width; // Get the width of the PDF document
+    const imageWidth = 170; // Adjust this based on your image's actual width
+    const centerX = (pdfWidth - imageWidth) / 2;
+    const todayDate = '12-07-2023 à 00:00'
+    const numTicket = '0002'
+    doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), centerX, 40, { width: imageWidth });
+    doc.text('Lot 1116K 256 Mahazoarivo Nord', centerX, 110)
+    doc.text('0341450158 / 0330962066', centerX+15, 120)
+    doc.fillColor('blue'); // Set text color to blue
+    doc.text('qqienathan@gmail.com', centerX+20, 130)
 
-    // ... Add more content customization here
+    doc.fillColor('black'); // Set text color to blue
+    doc.text('Agent : ', 40, 160)
+    doc.text('CLIENT : ', pdfWidth-150, 160)
+    doc.font('Helvetica-Bold'); // Set font to bold
+    doc.text('FACT N° ', centerX+40, 175)
+    //num Facture donnée
+    // doc.text(num, centerX+40, 130)
 
-    // // Add user input items to the PDF
-    // const tableStartY = 300;
-    // let y = tableStartY;
-    // doc.moveDown();
+    const currentDate = new Date();
+    // Get the current date in the format "YYYY-MM-DD"
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${day}-${month}-${year}`;
+
+    // Get the current time in the format "HH:MM:SS"
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    doc.fontSize(11);
+    doc.text('Ticket N° '+numTicket+' du '+formattedDate+' à '+formattedTime, 40, 190)
+
+    const tableData = [
+      ['Désignation', 'Qté', 'Uté', 'P*U','Montant'],
+      ['Row 1 Cell 1', 'Row 1 Cell 2', 'Row 1 Cell 3', 'Row 1 Cell 4', 'Row 1 Cell 5'],
+      ['Row 2 Cell 1', 'Row 2 Cell 2', 'Row 2 Cell 3', 'Row 2 Cell 4', 'Row 2 Cell 5'],
+    ];
+
+    const tableTop = 210;
+    const tableLeft = 40;
+    const colWidth = 75;
+    const rowHeight = 20;
+
+    doc.font('Helvetica-Bold');
+    doc.fontSize(10);
+
+    // Draw table headers
+    drawCell(tableData[0], tableTop, true);
+
+    // Draw table rows
+    for (let i = 1; i < tableData.length; i++) {
+      drawCell(tableData[i], tableTop + i * rowHeight);
+    }
+
+    function drawCell(data, y, isHeader = false) {
+      for (let i = 0; i < data.length; i++) {
+          const x = tableLeft + i * colWidth;
+          const content = data[i].toString();
+          
+          if (isHeader) {
+            doc.rect(x, y, colWidth, rowHeight).fillAndStroke('#D3D3D3', '#000');
+            doc.fillColor('#000').text(content, x + 5, y + 5, { width: colWidth - 10, align: 'center' });
+          } else {
+            doc.rect(x, y, colWidth, rowHeight).stroke();
+            doc.text(content, x + 5, y + 5, { width: colWidth - 10, align: 'center' });
+          }
+      }
+    }
+    const total = 200000
+    const remise = "cent mille"
+    const sommeChiffre = 405079
+    const sommeLettre = utils.convertAmountToWords(sommeChiffre)
     
-    // doc.fontSize(12).text('Désignation', 50, y);
-    // doc.text('Qté', 200, y);
-    // doc.text('Uté', 300, y);
-    // doc.text('P*U (Ar TTC)', 400, y);
-    // doc.text('Montant (Ar TTC)', 500, y);
-    // y += 20;
+    doc.moveDown();
+    doc.text('Total : '+total+' Ar',centerX+50 )
+    doc.moveDown();
+    doc.text('Remise : '+remise+' Ar',centerX+50 )
+    doc.moveDown();
+    doc.text('Total à payer : '+sommeChiffre+' Ar',centerX+50 )
+    doc.moveDown();
+    doc.text('Arrêtée la présente facture à la somme de : '+sommeLettre+' Ariary',40 )
+     
 
-    // for (const item of items) {
-    //     doc.fontSize(12).text(item.name, 50, y);
-    //     doc.text(item.quantity.toString(), 200, y);
-    //     doc.text(item.unit, 300, y);
-    //     doc.text(item.price.toString(), 400, y);
-    //     doc.text(item.total.toString(), 500, y);
-    //     y += 20;
-    // }
-
-    // // Calculate and display total
-    // const total = items.reduce((sum, item) => sum + parseFloat(item.total), 0);
-    // y += 20;
-    // doc.moveDown();
-    // doc.fontSize(14).text(`TOTAL : ${total}`, { align: 'right', width: 500, height: 20 });
-
-    // // ... Customize and add more content as needed
 
     doc.end();
 });
