@@ -46,14 +46,14 @@ app.post('/generate-bill', (req, res) => {
     const centerX = (pdfWidth - imageWidth) / 2;
     const todayDate = '12-07-2023 à 00:00'
     const numTicket = '0002'
-    doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), centerX, 40, { width: imageWidth });
+    doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), centerX, 25, { width: imageWidth });
     doc.text('Lot 1116K 256 Mahazoarivo Nord', centerX, 110)
     doc.text('0341450158 / 0330962066', centerX+15, 120)
     doc.fillColor('blue'); // Set text color to blue
     doc.text('qqienathan@gmail.com', centerX+20, 130)
 
     doc.fillColor('black'); // Set text color to blue
-    doc.text('Agent : ', 40, 160)
+    doc.text('Agent : ', 25, 160)
     doc.text('CLIENT : ', pdfWidth-150, 160)
     doc.font('Helvetica-Bold'); // Set font to bold
     doc.text('FACT N° ', centerX+40, 175)
@@ -82,8 +82,8 @@ app.post('/generate-bill', (req, res) => {
     ];
 
     const tableTop = 210;
-    const tableLeft = 40;
-    const colWidth = 75;
+    const tableLeft = 25;
+    const colWidth = 70;
     const rowHeight = 20;
 
     doc.font('Helvetica-Bold');
