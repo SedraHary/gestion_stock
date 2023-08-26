@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="billForm">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customerName"><br><br>
+
+        <label for="item1">Item 1:</label>
+        <input type="text" id="item1" name="item1" placeholder="Product A">
+        <input type="number" id="price1" name="price1" placeholder="Price"><br><br>
+
+        <label for="item2">Item 2:</label>
+        <input type="text" id="item2" name="item2" placeholder="Product B">
+        <input type="number" id="price2" name="price2" placeholder="Price"><br><br>
+
+        <!-- Add more items as needed -->
+
+        <button type="button" id="exportButton">Export Sales Bill</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#exportButton').click(function() {
+                // Get user input values
+                const customerName = $('#customerName').val();
+                const item1 = $('#item1').val();
+                const price1 = $('#price1').val();
+                const item2 = $('#item2').val();
+                const price2 = $('#price2').val();
+
+                // Create a data object to send to the backend
+                const data = {
+                    customerName: customerName,
+                    items: [
+                        { name: item1, price: price1 },
+                        { name: item2, price: price2 }
+                        // Add more items here
+                    ]
+                };
+                // Perform AJAX request to the backend to generate and download the bill
+                fetch('/generate-bill', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'sales_bill.pdf';
+                    a.click();
+                })
+                .catch(error => {
+                    console.error('Error generating bill:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
