@@ -26,7 +26,7 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.post('/generate-bill', (req, res) => {
-  const { customerName, items } = req.body;
+  const { agent, client, remise, totalApres, totalAvant, articleData } = req.body;
 
     // Create a PDF document
     const doc = new PDFDocument({
@@ -52,11 +52,16 @@ app.post('/generate-bill', (req, res) => {
     doc.fillColor('blue'); // Set text color to blue
     doc.text('qqienathan@gmail.com', centerX+20, 130)
 
+    doc.fontSize(11);
     doc.fillColor('black'); // Set text color to blue
-    doc.text('Agent : ', 25, 160)
-    doc.text('CLIENT : ', pdfWidth-150, 160)
+    doc.text('AGENT : '+agent, 25, 160)
+    doc.text('CLIENT : '+client, pdfWidth-170, 160, {
+      width: 200, // Spécifiez la largeur maximale pour le texte
+      align: 'left', // Alignement du texte
+      continued: false // Empêche le texte de continuer à la ligne suivante
+    })
     doc.font('Helvetica-Bold'); // Set font to bold
-    doc.text('FACT N° ', centerX+40, 175)
+    doc.text('FACT N° 0001', centerX+40, 175)
     //num Facture donnée
     // doc.text(num, centerX+40, 130)
 
@@ -76,11 +81,19 @@ app.post('/generate-bill', (req, res) => {
     doc.text('Ticket N° '+numTicket+' du '+formattedDate+' à '+formattedTime, 40, 190)
 
     const tableData = [
-      ['Désignation', 'Qté', 'Uté', 'P*U','Montant'],
-      ['Row 1 Cell 1', 'Row 1 Cell 2', 'Row 1 Cell 3', 'Row 1 Cell 4', 'Row 1 Cell 5'],
-      ['Row 2 Cell 1', 'Row 2 Cell 2', 'Row 2 Cell 3', 'Row 2 Cell 4', 'Row 2 Cell 5'],
+      ['Désignation', 'Qté', 'Uté', 'P*U','Montant']
     ];
-
+    articleData.forEach(function(objet) {
+      const rowData = [
+        objet.description,
+        objet.quantity,
+        objet.unity,
+        objet.price,
+        objet.quantity * objet.price // Calcul du montant
+      ];
+    
+      tableData.push(rowData);
+    });
     const tableTop = 210;
     const tableLeft = 25;
     const colWidth = 70;
@@ -111,15 +124,15 @@ app.post('/generate-bill', (req, res) => {
           }
       }
     }
-    const total = 200000
-    const remise = "cent mille"
-    const sommeChiffre = 405079
-    const sommeLettre = utils.convertAmountToWords(sommeChiffre)
+    const total = totalAvant;
+    const remiseFinal = remise;
+    const sommeChiffre = totalApres;
+    const sommeLettre = utils.convertAmountToWords(sommeChiffre);
     
     doc.moveDown();
     doc.text('Total : '+total+' Ar',centerX+50 )
     doc.moveDown();
-    doc.text('Remise : '+remise+' Ar',centerX+50 )
+    doc.text('Remise : '+remiseFinal+' Ar',centerX+50 )
     doc.moveDown();
     doc.text('Total à payer : '+sommeChiffre+' Ar',centerX+50 )
     doc.moveDown();

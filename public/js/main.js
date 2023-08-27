@@ -202,44 +202,7 @@
             }
         });
 
-        //Création fature
-        const addItemButton = $('#add-item');
-        const itemList = $('#item-list');
-        const invoiceTotalElement = $('#invoice-total');
-
-        addItemButton.on('click', function() {
-            const newRow = $('<tr>\
-            <td><input type="text" class="description" placeholder="Description"></td>\
-            <td><input type="number" class="quantity" placeholder="Quantité"></td>\
-            <td><input type="number" class="price" placeholder="Prix"></td>\
-            <td><span class="total">0.00</span></td>\
-            </tr>');
-            itemList.append(newRow);
-        });
-
-        itemList.on('input', '.quantity, .price', function() {
-            updateTotal();
-        });
-
-        function updateTotal() {
-            let total = 0;
-            const rows = itemList.find('tr');
-            rows.each(function() {
-            const quantity = parseFloat($(this).find('.quantity').val());
-            const price = parseFloat($(this).find('.price').val());
-            const rowTotal = quantity * price;
-            $(this).find('.total').text(rowTotal.toFixed(2));
-            total += rowTotal;
-            });
-            invoiceTotalElement.text(total.toFixed(2));
-        }
-
-        const generateInvoiceButton = $('#generate-invoice');
-        generateInvoiceButton.on('click', function() {
-            const client = $('#client').val();
-            const date = $('#date').val();
-            const total = parseFloat(invoiceTotalElement.text()).toFixed(2);
-        });
+        
     });
     $('#apercuFacture').on('click', function(){
         $('#invoice-modal').css('display', 'block');
