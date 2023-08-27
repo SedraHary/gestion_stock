@@ -9,6 +9,21 @@
         $("#userTypeTitle").text(userType==="admin"? "Admin": "Agent "+userAgentCode);
         $("#titleUserConnected").text(userName);
         $("#titleUserConnected2").text(userName);
+
+        if (userType!=="admin") {
+            // Masquer les éléments de menu qui ne doivent pas être visibles pour les utilisateurs non administrateurs
+            $("#bordMenu").hide();
+            $("#stockMenu").hide();
+            $("#userMenu").hide();
+            $("#clientFournisseurMenu").hide();
+
+            $('#bordContent').attr("hidden",true);
+            $('#stockContent').attr("hidden",true);
+            $('#userContent').attr("hidden",true);
+            $('#clientFournisseurContent').attr("hidden",true);
+            $('#factureContent').attr("hidden",false);
+        }
+
         fetch("/api/users", {
             method: "GET",
             headers: {
