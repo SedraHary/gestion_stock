@@ -244,11 +244,6 @@
     $('#apercuFacture').on('click', function(){
         $('#invoice-modal').css('display', 'block');
     })
-    const closePreviewButton = $('.close');
-    closePreviewButton.on('click', function() {
-        // Fermer la fenêtre modale de prévisualisation de la facture
-        $('#invoice-modal').css('display', 'none');
-    });
 
     const printInvoiceButton = $('#print-invoice');
     printInvoiceButton.on('click', function() {

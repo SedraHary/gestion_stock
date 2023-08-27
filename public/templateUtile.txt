@@ -1,0 +1,54 @@
+<div class="preview-container">
+                        
+                        <div class="modal" id="invoice-modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2>Aperçu de la facture</h2>
+                                <div id="invoice-preview">
+                                    <!-- Ici, vous pouvez afficher les informations de la facture prévisualisée -->
+                                    <img alt="logo" src="./assets/img/logo.jpg" style="width: 300px"/>
+                                    <div id="adressContact">
+                                        Lot 1116K 256 Mahazoarivo Nord
+                                            
+                                    </div>
+                                    <div id="contact">
+                                        
+                                            0341450158 / 0330962066
+                                    </div>
+                                    <a style="color: cornflowerblue;">qqienathan@gmail.com </a>
+                                    <!-- <div id="divAgent">Agent:<p id="Agent"></p></div id="divClient"><div>Client: <p id="clientCode"></p></div> -->
+                                    <div class="container">
+                                        <div class="left-content">
+                                        <div id="divAgent">Agent:<p id="Agent"></p></div>
+                                        </div>
+                                        <div class="right-content">
+                                        <div id="divClient">Client: <p id="clientCode"></p></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p>Fact N° </p>
+                                    <div id="divTicket"><p id="numTicket">Ticket N°: </p></div>
+                                    <table id="factureTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                                        <thead>
+                                            <tr class="text-dark">
+                                                <th scope="col">Désignation</th>
+                                                <th scope="col">Qté</th>
+                                                <th scope="col">Uté</th>
+                                                <th scope="col">P*U (Ar TTC)</th>
+                                                <th scope="col">Montant (Ar TTC)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                    </table>    
+                                    </tbody>
+                                    <p>TOTAL : </p><p id="totalFacture"></p><br/>
+                                    <p>REMISE : </p><p id="remiseFacture"></p><br/>
+                                    <p>TOTAL A PAYER : </p><p id="totalPayerFacture"></p><br/>
+                                    <p id="MontantLettre">Arrêtée la présente facture à la somme de : </p><p id="MontantLettreFacture"></p><br/>     
+                                    
+                                </div>
+                                <button id="print-invoice">Imprimer</button>
+                            </div>
+                        </div>
+                        
+                    </div>

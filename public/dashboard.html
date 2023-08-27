@@ -595,93 +595,50 @@
                         <!-- <h1>Création de Facture</h1> -->
                         <div class="form-group">
                           <label for="client">Client:</label>
-                          <input type="text" id="client" placeholder="Nom du client">
-                        </div>
-                        <div class="form-group">
-                          <label for="date">Date:</label>
-                          <input type="date" id="date">
+                          <div class="search-option">
+                                <input type="text" id="searchInput" placeholder="Rechercher une option...">
+                                <div id="optionsContainer">
+                                    <!-- Les options seront ajoutées dynamiquement via JavaScript -->
+                                </div>
+                          </div>
+                        
                         </div>
                         <table>
                           <thead>
                             <tr>
-                              <th>Description</th>
+                              <th>Désignation</th>
                               <th>Quantité</th>
+                              <th>Unité</th>
                               <th>Prix unitaire</th>
                               <th>Total</th>
                             </tr>
                           </thead>
                           <tbody id="item-list">
                             <tr>
-                              <td><input type="text" class="description" placeholder="Description"></td>
+                              <td><input type="text" class="description" placeholder="Désignation"></td>
                               <td><input type="number" class="quantity" placeholder="Quantité"></td>
-                              <td><input type="number" class="price" placeholder="Prix"></td>
+                              <td><input type="text" class="unity" placeholder="Unité"></td>
+                              <td><input type="number" class="price" placeholder="Prix unitaire"></td>
                               <td><span class="total">0.00</span></td>
                             </tr>
                           </tbody>
                         </table>
                         <button id="add-item">Ajouter un article</button>
                         <div class="form-group">
-                          <label for="total">Total:</label>
-                          <span id="invoice-total">0.00</span>
+                            <label for="total">Total:</label>
+                            <span id="invoice-total">0.00</span>
+                          </div>
+                        <div class="form-group">
+                            <label for="client">Remise:</label>
+                            <input type="number" id="remise" placeholder="Remise">
+                          </div>
+                        <div class="form-group">
+                          <label for="total">Total à payer:</label>
+                          <span id="invoice-totalTTC">0.00</span>
                         </div>
-                        <button id="apercuFacture">Apercue de la facture</button>
                         <button id="generate-invoice">Générer Facture</button>
                     </div>
 
-                    <div class="preview-container">
-                        
-                        <div class="modal" id="invoice-modal">
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                <h2>Aperçu de la facture</h2>
-                                <div id="invoice-preview">
-                                    <!-- Ici, vous pouvez afficher les informations de la facture prévisualisée -->
-                                    <img alt="logo" src="./assets/img/logo.jpg" style="width: 300px"/>
-                                    <div id="adressContact">
-                                        Lot 1116K 256 Mahazoarivo Nord
-                                            
-                                    </div>
-                                    <div id="contact">
-                                        
-                                            0341450158 / 0330962066
-                                    </div>
-                                    <a style="color: cornflowerblue;">qqienathan@gmail.com </a>
-                                    <!-- <div id="divAgent">Agent:<p id="Agent"></p></div id="divClient"><div>Client: <p id="clientCode"></p></div> -->
-                                    <div class="container">
-                                        <div class="left-content">
-                                        <div id="divAgent">Agent:<p id="Agent"></p></div>
-                                        </div>
-                                        <div class="right-content">
-                                        <div id="divClient">Client: <p id="clientCode"></p></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <p>Fact N° </p>
-                                    <div id="divTicket"><p id="numTicket">Ticket N°: </p></div>
-                                    <table id="factureTable" class="table text-start align-middle table-bordered table-hover mb-0">
-                                        <thead>
-                                            <tr class="text-dark">
-                                                <th scope="col">Désignation</th>
-                                                <th scope="col">Qté</th>
-                                                <th scope="col">Uté</th>
-                                                <th scope="col">P*U (Ar TTC)</th>
-                                                <th scope="col">Montant (Ar TTC)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                    </table>    
-                                    </tbody>
-                                    <p>TOTAL : </p><p id="totalFacture"></p><br/>
-                                    <p>REMISE : </p><p id="remiseFacture"></p><br/>
-                                    <p>TOTAL A PAYER : </p><p id="totalPayerFacture"></p><br/>
-                                    <p id="MontantLettre">Arrêtée la présente facture à la somme de : </p><p id="MontantLettreFacture"></p><br/>     
-                                    
-                                </div>
-                                <button id="print-invoice">Imprimer</button>
-                            </div>
-                        </div>
-                        
-                    </div>
                 </div>
             </div>
             <!-- Gestion facture End -->
@@ -709,6 +666,7 @@
     <script src="js/main.js"></script>
     <script src="js/article.js"></script>
     <script src="js/ClientFournisseur.js"></script>
+    <script src="js/facture.js"></script>
     
 </body>
 
