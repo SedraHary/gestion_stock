@@ -10,7 +10,6 @@ const stockRoutes = require('./routes/StockRoutes');
 const storeRoutes = require('./routes/StoreRoutes');
 const supplierRoutes = require('./routes/SupplierRoutes');
 const path = require('path');
-const fs = require("fs");
 const PDFDocument = require('pdfkit');
 
 const app = express();
