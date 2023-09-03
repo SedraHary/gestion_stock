@@ -19,7 +19,8 @@
         })
         .then((data) => {
             var newData = data.map(function(option) {
-                return { text: option.articleName, value: option.articleName, id: option.articleId, unite: option.articleUnit, pvDet: option.articlePVDet};
+                let article = option.articleName+" "+option.articleDetail+" "+option.articleUnit;
+                return { text: article, value: option.articleName, id: option.articleId, unite: option.articleUnit, pvDet: option.articlePVDet};
             });
             articleOption = newData;
         })
@@ -110,27 +111,27 @@
                 totalAvant : totalAvant,
                 agent : agent
             }
-            // console.log(dataToSend);
+            console.log(dataToSend);
 
             // Perform AJAX request to the backend to generate and download the bill
-            fetch('/generate-bill', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataToSend)
-            })
-            .then(response => response.blob())
-            .then(blob => {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Facture.pdf';
-                a.click();
-            })
-            .catch(error => {
-                console.error('Error generating bill:', error);
-            });
+            // fetch('/generate-bill', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(dataToSend)
+            // })
+            // .then(response => response.blob())
+            // .then(blob => {
+            //     const url = URL.createObjectURL(blob);
+            //     const a = document.createElement('a');
+            //     a.href = url;
+            //     a.download = 'Facture.pdf';
+            //     a.click();
+            // })
+            // .catch(error => {
+            //     console.error('Error generating bill:', error);
+            // });
         })
 
         //Création fature
@@ -138,12 +139,7 @@
         const itemList = $('#item-list');
         const invoiceTotalElement = $('#invoice-total');
 
-        // const generateInvoiceButton = $('#generate-invoice');
-        // generateInvoiceButton.on('click', function() {
-        //     const client = $('#client').val();
-        //     const date = $('#date').val();
-        //     const total = parseFloat(invoiceTotalElement.text()).toFixed(2);
-        // });
+
         addItemButton.on('click', function() {
             const newRow = $('<tr>\
             <td><input type="text" class="description" placeholder="Désignation"></td>\
@@ -165,7 +161,7 @@
             optionsContainer.empty(); // Effacer les anciennes options
             
             $.each(articleOption, function(index, option) {
-              if (option.text.toLowerCase().startsWith(input)) {
+              if (option.text.toLowerCase().startsWith(input)) {console.log(option)
                 optionsContainer.append($("<div>", {
                   class: "option-item",
                   text: option.text,
