@@ -1,0 +1,44 @@
+
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Ciment', 'LOVA', 'Sac', '33000.00', '33000.00', '32800.00', '32600.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Ciment', 'Orimbato', 'Sac', '37500.00', '37500.00', '37200.00', '37000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Ciment', 'Lafange', 'Sac', '35000.00', '34500.00', '34200.00', '34000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer JR', 'Diam 6', 'tige', '15000.00', '14500.00', '14500.00', '14000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer JR', 'Diam 8', 'tige', '18000.00', '17500.00', '17500.00', '17000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer JR', 'Diam 10', 'tige', '27500.00', '27000.00', '26800.00', '25800.00', '0');
+
+  
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer JR', 'Diam 12', 'tige', '39500.00', '39000.00', '39000.00', '37700.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer Tunkey', 'Diam 6', 'tige', '18500.00', '18000.00', '17500.00', '17000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer Tunkey', 'Diam 8', 'tige', '26500.00', '25500.00', '25500.00', '25000.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer Tunkey', 'Diam 10', 'tige', '44000.00', '43000.00', '43000.00', '41500.00', '0');
+
+INSERT INTO public.article(articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity)
+VALUES (Default, 'Ciment et fer', 'Fer Tunkey', 'Diam 12', 'tige', '63000.00', '62000.00', '61500.00', '59500.00', '0');
+
+  
+   
+ 
+
+  
+
+
