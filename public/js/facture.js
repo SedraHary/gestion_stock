@@ -111,7 +111,7 @@
                 totalAvant : totalAvant,
                 agent : agent
             }
-            console.log(dataToSend);
+            // console.log(dataToSend);
 
             // Perform AJAX request to the backend to generate and download the bill
             // fetch('/generate-bill', {

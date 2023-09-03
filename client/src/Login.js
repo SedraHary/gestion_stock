@@ -11,8 +11,8 @@ const Login = () => {
     // Utilisez emailRef.current.value et passwordRef.current.value pour accéder aux valeurs des champs de saisie
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log('Email:', email);
-    console.log('Password:', password);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
 
     // Mettez ici la logique pour vérifier les informations de connexion et authentifier l'utilisateur
     // Vous pouvez utiliser des requêtes API, des appels à un serveur, etc.

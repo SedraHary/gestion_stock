@@ -6,7 +6,7 @@ $(document).ready(function () {
         event.preventDefault();
         const email = $('#email').val();
         const password = $('#password').val();
-        console.log(email,password);
+        // console.log(email,password);
         fetch("/api/login/user", {
             method: "POST",
             headers: {
@@ -18,14 +18,14 @@ $(document).ready(function () {
             }),
         })
         .then((response) => {
-            console.log(11,response);
+            // console.log(11,response);
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
             return response.json();
         })
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             if (data.length>0) {
                 window.location.href = 'dashboard';
             } else {
