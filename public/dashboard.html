@@ -142,6 +142,14 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Liste des articles</h6>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchArticle" placeholder="Rechercher">
+                                <div class="input-group-append">
+                                    <button id="btnRechercheArticle" type="button" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
                         <button id="openStockModal" class="btn btn-primary btn-sm add-btn"><i class="fa fa-plus"></i></button>
                         <!-- <a href="">Show All</a> -->
                     </div>
@@ -157,6 +165,7 @@
                                     <th scope="col">PV Gros</th>
                                     <th scope="col">PV REV</th>
                                     <th scope="col">PA</th>
+                                    <th scope="col">Quantité</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -203,6 +212,9 @@
                             <div class="mb-3">
                                 <input type="number" class="form-control" id="PAArticleForm" placeholder="PA article">
                             </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="QuantityForm" placeholder="Stock en quantité">
+                            </div>
                         </form>
                         </div>
                         <div class="modal-footer">
@@ -247,6 +259,9 @@
                             </div>
                             <div class="mb-3">
                                 <input type="number" class="form-control" id="PAArticleUpdate" placeholder="PA article">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="QuantityUpdate" placeholder="Stock en quantité">
                             </div>
                         </form>
                         </div>

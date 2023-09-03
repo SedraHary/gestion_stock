@@ -46,7 +46,7 @@
                 ligne.append('<td>' + user.userAgentCode + '</td>');
                 ligne.append('<td>' + user.userName + '</td>');
                 ligne.append('<td>' + user.userType + '</td>');
-                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
             });
@@ -97,7 +97,7 @@
                     ligne.append('<td>' + user.userAgentCode + '</td>');
                     ligne.append('<td>' + user.userName + '</td>');
                     ligne.append('<td>' + user.userType + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -154,7 +154,7 @@
                     ligne.append('<td>' + user.userAgentCode + '</td>');
                     ligne.append('<td>' + user.userName + '</td>');
                     ligne.append('<td>' + user.userType + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -202,7 +202,7 @@
                             ligne.append('<td>' + user.userAgentCode + '</td>');
                             ligne.append('<td>' + user.userName + '</td>');
                             ligne.append('<td>' + user.userType + '</td>');
-                            ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                            ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
                             // ligne.append('</tr>')
                             tableauResultat.append(ligne);
                         });

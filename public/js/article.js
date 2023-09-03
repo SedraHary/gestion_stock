@@ -32,7 +32,8 @@
                 ligne.append('<td>' + article.articlePvGros + '</td>');
                 ligne.append('<td>' + article.articlePvRev + '</td>');
                 ligne.append('<td>' + article.articlePa + '</td>');
-                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                ligne.append(article.articleQuantity===null?'<td>0</td>' : '<td>' + article.articleQuantity + '</td>');
+                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
             });
@@ -63,6 +64,7 @@
             $("#PVGrosArticleUpdate").val(article.articlePvGros);
             $("#PVRevArticleUpdate").val(article.articlePvRev);
             $("#PAArticleUpdate").val(article.articlePa);
+            $("#QuantityUpdate").val(article.articleQuantity);
         });
         
         //Modifier article
@@ -75,6 +77,7 @@
             let pvGros = $("#PVGrosArticleUpdate").val();
             let pvRev = $("#PVRevArticleUpdate").val();
             let pa = $("#PAArticleUpdate").val();
+            let quantity = $("#QuantityUpdate").val();
             let articleId = sessionStorage.getItem("articleSelectedId");
             var newArticle = {
                 articleId: articleId,
@@ -85,7 +88,8 @@
                 articlePVDet: pvDet,
                 articlePvGros: pvGros,
                 articlePvRev: pvRev,
-                articlePa:pa
+                articlePa:pa,
+                articleQuantity: quantity
             };
             
             fetch("/api/updateArticle", {
@@ -114,7 +118,8 @@
                     ligne.append('<td>' + article.articlePvGros + '</td>');
                     ligne.append('<td>' + article.articlePvRev + '</td>');
                     ligne.append('<td>' + article.articlePa + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    ligne.append(article.articleQuantity===null?'<td>0</td>' : '<td>' + article.articleQuantity + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -163,7 +168,8 @@
                         ligne.append('<td>' + article.articlePvGros + '</td>');
                         ligne.append('<td>' + article.articlePvRev + '</td>');
                         ligne.append('<td>' + article.articlePa + '</td>');
-                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                        ligne.append(article.articleQuantity===null?'<td>0</td>' : '<td>' + article.articleQuantity + '</td>');
+                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                         // ligne.append('</tr>')
                         tableauResultat.append(ligne);
                     });
@@ -192,6 +198,7 @@
             let pvGros = $("#PVGrosArticleForm").val();
             let pvRev = $("#PVRevArticleForm").val();
             let pa = $("#PAArticleForm").val();
+            let quantity = $("#QuantityForm").val();
             var newArticle = {
                 articleFamily:famille,
                 articleName: nom,
@@ -200,7 +207,8 @@
                 articlePVDet: pvDet,
                 articlePvGros: pvGros,
                 articlePvRev: pvRev,
-                articlePa:pa
+                articlePa:pa,
+                articleQuantity: quantity
             };
 
              fetch("/api/addArticle", {
@@ -229,7 +237,8 @@
                     ligne.append('<td>' + article.articlePvGros + '</td>');
                     ligne.append('<td>' + article.articlePvRev + '</td>');
                     ligne.append('<td>' + article.articlePa + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2">Modifier</button><button class="btn btn-danger btn-sm delete-btn ml-2">Supprimer</button></div>');
+                    ligne.append(article.articleQuantity===null?'<td>0</td>' : '<td>' + article.articleQuantity + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -237,6 +246,50 @@
              .catch(error => {
                  console.error("Erreur :", error);
              });
+        });
+        //Recherche article
+        $("#btnRechercheArticle").click(function() {
+            // console.log($('#searchArticle').val())
+            let motCle = $('#searchArticle').val();
+            searchArticle
+
+            var newArticle = {
+                motCle:motCle
+            };
+            fetch("/api/searchArticle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newArticle)
+            })
+            .then(response => response.json())
+            .then(data => {console.log(data)
+                $("#myStockModal").modal("hide");
+
+               // Créer le tableau HTML
+               const tableauResultat = $('#stockTable tbody');
+               $('#stockTable tbody tr').remove();
+               data.forEach(article => {
+                   const ligne = $('<tr>');
+                   ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
+                   ligne.append('<td>' + article.articleFamily + '</td>');
+                   ligne.append('<td>' + article.articleName + '</td>');
+                   ligne.append('<td>' + article.articleDetail + '</td>');
+                   ligne.append('<td>' + article.articleUnit + '</td>');
+                   ligne.append('<td>' + article.articlePVDet + '</td>');
+                   ligne.append('<td>' + article.articlePvGros + '</td>');
+                   ligne.append('<td>' + article.articlePvRev + '</td>');
+                   ligne.append('<td>' + article.articlePa + '</td>');
+                   ligne.append(article.articleQuantity===null?'<td>0</td>' : '<td>' + article.articleQuantity + '</td>');
+                   ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
+                   // ligne.append('</tr>')
+                   tableauResultat.append(ligne);
+               });
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+            });
         });
     });
     

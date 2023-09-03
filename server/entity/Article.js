@@ -1,5 +1,5 @@
 class Article {
-    constructor(articleId, articleFamily, articleName, articleDetail, articleUnit,articlePVDet, articlePvGros, articlePvRev, articlePa ) {
+    constructor(articleId, articleFamily, articleName, articleDetail, articleUnit,articlePVDet, articlePvGros, articlePvRev, articlePa, articleQuantity ) {
       this.articleId = articleId;
       this.articleFamily = articleFamily;
       this.articleName = articleName;
@@ -9,6 +9,7 @@ class Article {
       this.articlePvGros = articlePvGros;
       this.articlePvRev = articlePvRev;
       this.articlePa = articlePa;
+      this.articleQuantity = articleQuantity;
     }
 }
   

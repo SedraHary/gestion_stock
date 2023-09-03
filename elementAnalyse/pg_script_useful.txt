@@ -128,6 +128,15 @@ ADD COLUMN article_id INTEGER,
 ADD CONSTRAINT fk_relation_stock_article
 FOREIGN KEY (article_id) REFERENCES public.article(articleid);
 
+Ajout colonne:
+ALTER TABLE public.article
+ADD COLUMN quantity integer;
+ALTER TABLE public.test
+ADD COLUMN quantity integer;
+
+Changer nom colonne:
+ALTER TABLE public.test
+RENAME COLUMN testid TO articleid;
 
 EXPORTER LA BASE:
 pg_dump -U postgres -d g_stock -f D:\Freelance/backup_stock.sql
