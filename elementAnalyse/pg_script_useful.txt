@@ -147,6 +147,7 @@ restart application : pm2 restart id_de_l_application (ou all)
 se connecter à une base de données test par exemple: psql -U postgres -p 5432 -d test
 afficher liste base de données: \l
 liste tables: \dt
+lister les schemas: SELECT schema_name FROM information_schema.schemata;
 connexion postgres avec psql : sudo -u postgres psql
 importaation d'une dump.sql : psql -U postgres -d database_name -f /chemin/vers/votre/fichier.sql
 annuler les modification git : git checkout . , git clean -f
