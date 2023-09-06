@@ -248,7 +248,50 @@
              });
         });
         //Recherche article
-        $("#btnRechercheArticle").click(function() {
+        $("#searchArticle").on('input', function() {
+            // console.log($('#searchArticle').val())
+            let motCle = $('#searchArticle').val();
+
+            var newArticle = {
+                motCle:motCle
+            };
+            fetch("/api/searchArticle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newArticle)
+            })
+            .then(response => response.json())
+            .then(data => {
+                $("#myStockModal").modal("hide");
+
+               // Créer le tableau HTML
+               const tableauResultat = $('#stockTable tbody');
+               $('#stockTable tbody tr').remove();
+               data.forEach(article => {console.log(article)
+                   const ligne = $('<tr>');
+                   ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
+                   ligne.append('<td>' + article.articleFamily + '</td>');
+                   ligne.append('<td>' + article.articleName + '</td>');
+                   ligne.append('<td>' + article.articleDetail + '</td>');
+                   ligne.append('<td>' + article.articleUnit + '</td>');
+                   ligne.append('<td>' + article.articlePVDet + '</td>');
+                   ligne.append('<td>' + article.articlePvGros + '</td>');
+                   ligne.append('<td>' + article.articlePvRev + '</td>');
+                   ligne.append('<td>' + article.articlePa + '</td>');
+                   ligne.append( '<td>' + article.articleQuantity + '</td>');
+                   ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
+                   // ligne.append('</tr>')
+                   tableauResultat.append(ligne);
+               });
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+            });
+        });
+
+        $("#btnRechercheArticle").click( function() {
             // console.log($('#searchArticle').val())
             let motCle = $('#searchArticle').val();
 
