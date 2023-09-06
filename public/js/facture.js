@@ -161,7 +161,7 @@
             optionsContainer.empty(); // Effacer les anciennes options
             
             $.each(articleOption, function(index, option) {
-              if (option.text.toLowerCase().startsWith(input)) {console.log(option)
+              if (option.text.toLowerCase().startsWith(input)) {
                 optionsContainer.append($("<div>", {
                   class: "option-item",
                   text: option.text,

@@ -255,7 +255,7 @@
                  // Créer le tableau HTML
                 const tableauResultat = $('#clientTable tbody');
                 $('#clientTable tbody tr').remove();
-                data.forEach(client => {console.log(client)
+                data.forEach(client => {
                     const ligne = $('<tr>');
                     ligne.data('client', client); // Stocker l'identifiant dans l'attribut data-id
                     ligne.append('<td>' + client.customerName + '</td>');
