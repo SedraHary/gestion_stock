@@ -427,6 +427,7 @@ ALTER TABLE ONLY public."user" ALTER COLUMN userid SET DEFAULT nextval('public.u
 --
 
 COPY public.article (articleid, articlefamily, articlename, articledetail, articleunit, articlepv_det, articlepv_gros, articlepv_rev, articlepa, quantity) FROM stdin;
+70	Mastic et bombe	Mastic KAPCI	1kg	boite	25000.00	25000.00	24500.00	23500.00	0
 8	Tourelle&Papier Abrasif&disque	Tôle Alu 0,14	2m	Feuille	17600.00	16600.00	16600.00	15600.00	0
 9	Tourelle&Papier Abrasif&disque	Tôle Alu 0,14	2.5m	Feuille	21500.00	21500.00	21500.00	19500.00	0
 10	Tourelle&Papier Abrasif&disque	Tôle Alu 0,14	3m	Feuille	25400.00	24400.00	24400.00	23400.00	0
@@ -475,6 +476,29 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 53	Ciment et fer	Fer Tunkey	Diam 8	tige	26500.00	25500.00	25500.00	25000.00	0
 54	Ciment et fer	Fer Tunkey	Diam 10	tige	44000.00	43000.00	43000.00	41500.00	0
 55	Ciment et fer	Fer Tunkey	Diam 12	tige	63000.00	62000.00	61500.00	59500.00	0
+56	Huile&Graisse&liquide frein	Huile 40	Elite	bidon	52000.00	52000.00	51000.00	50000.00	0
+57	Huile&Graisse&liquide frein	Huile 40	Select	bidon	54000.00	54000.00	53000.00	51500.00	0
+58	Huile&Graisse&liquide frein	Huile 90	Elite	bidon	70000.00	70000.00	69000.00	65000.00	0
+59	Huile&Graisse&liquide frein	Huile 140	Elite	bidon	79000.00	79000.00	78000.00	75000.00	0
+60	Huile&Graisse&liquide frein	Huile ATF	Boss	bidon	13000.00	13000.00	12500.00	12000.00	0
+61	Huile&Graisse&liquide frein	Huile ATF	Euro	bidon	13000.00	13000.00	12500.00	12000.00	0
+62	Huile&Graisse&liquide frein	Graisse	Boss	Boite	18000.00	18000.00	17500.00	16500.00	0
+63	Huile&Graisse&liquide frein	Graisse	Euro	Boite	17000.00	17000.00	16500.00	15500.00	0
+64	Huile&Graisse&liquide frein	Liquide 55		Boite	11000.00	10000.00	9500.00	9000.00	0
+65	Huile&Graisse&liquide frein	Liquide E5		Boite	11000.00	10000.00	9500.00	9000.00	0
+66	Recuit & pointe	Recuit		kg	10000.00	9000.00	9000.00	6500.00	0
+67	Recuit & pointe	Pointe	tête plate	kg	8000.00	7000.00	6500.00	5400.00	0
+68	Recuit & pointe	Pointe	tôle	kg	10000.00	9000.00	9000.00	7800.00	0
+69	Recuit & pointe	Pointe	tête d"homme	kg	12000.00	12000.00	12000.00	9000.00	0
+71	Mastic et bombe	Mastic KAPCI	2kg	boite	34000.00	34000.00	33600.00	32000.00	0
+72	Mastic et bombe	Fibre	1kg	boite	28000.00	28000.00	28000.00	26500.00	0
+73	Mastic et bombe	Après	1kg	boite	23000.00	23000.00	23000.00	22000.00	0
+74	Mastic et bombe	Bombe	Freder	tube	5500.00	5500.00	5500.00	5000.00	0
+75	Mastic et bombe	Bombe	Spray Paint	tube	7500.00	7500.00	7500.00	6000.00	0
+76	Peinture à l'eau et teinte	3F1 Color	4kg	boite	17000.00	16000.00	13000.00	10600.00	0
+79	Peinture à l'eau et teinte	Teinte	Uniteinte	flacon	3000.00	3000.00	2800.00	2500.00	0
+77	Peinture à l'eau et teinte	3F1 Color	10kg	boite	27000.00	26000.00	24500.00	23200.00	0
+78	Peinture à l'eau et teinte	3F1 Color	30kg	boite	47000.00	46000.00	44000.00	41300.00	0
 \.
 
 
@@ -7033,7 +7057,7 @@ COPY public."user" (userid, useragentcode, username, usertype, password) FROM st
 -- Name: article_articleid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.article_articleid_seq', 55, true);
+SELECT pg_catalog.setval('public.article_articleid_seq', 79, true);
 
 
 --
