@@ -27,7 +27,7 @@
                 ligne.append('<td>' + fournisseur.supplierName + '</td>');
                 ligne.append('<td>' + fournisseur.supplierLastName + '</td>');
                 ligne.append('<td>' + fournisseur.supplierContact + '</td>');
-                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
             });
@@ -63,7 +63,7 @@
                 ligne.append('<td>' + client.customerLastName + '</td>');
                 ligne.append('<td>' + client.customerContact + '</td>');
                 ligne.append('<td>' + client.customerCode + '</td>');
-                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
             });
@@ -112,7 +112,7 @@
                     ligne.append('<td>' + fournisseur.supplierName + '</td>');
                     ligne.append('<td>' + fournisseur.supplierLastName + '</td>');
                     ligne.append('<td>' + fournisseur.supplierContact + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -167,7 +167,7 @@
                     ligne.append('<td>' + fournisseur.supplierName + '</td>');
                     ligne.append('<td>' + fournisseur.supplierLastName + '</td>');
                     ligne.append('<td>' + fournisseur.supplierContact + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -210,7 +210,7 @@
                         ligne.append('<td>' + fournisseur.supplierName + '</td>');
                         ligne.append('<td>' + fournisseur.supplierLastName + '</td>');
                         ligne.append('<td>' + fournisseur.supplierContact + '</td>');
-                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                         tableauResultat.append(ligne);
                     });
                 })
@@ -262,7 +262,7 @@
                     ligne.append('<td>' + client.customerLastName + '</td>');
                     ligne.append('<td>' + client.customerContact + '</td>');
                     ligne.append('<td>' + client.customerCode + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
                 });
@@ -322,7 +322,7 @@
                     ligne.append('<td>' + client.customerLastName + '</td>');
                     ligne.append('<td>' + client.customerContact + '</td>');
                     ligne.append('<td>' + client.customerCode + '</td>');
-                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne); 
                 });
@@ -367,7 +367,7 @@
                         ligne.append('<td>' + client.customerLastName + '</td>');
                         ligne.append('<td>' + client.customerContact + '</td>');
                         ligne.append('<td>' + client.customerCode + '</td>');
-                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-<i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-<i class="fas fa-trash"></i></button></div>');
+                        ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                         tableauResultat.append(ligne);
                     });
                 })
