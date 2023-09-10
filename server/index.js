@@ -25,7 +25,7 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.post('/generate-bill', (req, res) => {
-  const { agent, client, remise, totalApres, totalAvant, articleData } = req.body;
+  const { agent, client, remise, totalApres, totalAvant, articleData , numeroFacture} = req.body;
 
     // Create a PDF document
     const doc = new PDFDocument({
@@ -43,8 +43,7 @@ app.post('/generate-bill', (req, res) => {
     const pdfWidth = doc.page.width; // Get the width of the PDF document
     const imageWidth = 170; // Adjust this based on your image's actual width
     const centerX = (pdfWidth - imageWidth) / 2;
-    const todayDate = '12-07-2023 à 00:00'
-    const numTicket = '0002'
+    const numTicket = numeroFacture;
     doc.image(path.join(__dirname, '../public/assets/img', 'logo.jpg'), centerX, 25, { width: imageWidth });
     doc.text('Lot 1116K 256 Mahazoarivo Nord', centerX, 110)
     doc.text('0341450158 / 0330962066', centerX+15, 120)
@@ -60,7 +59,7 @@ app.post('/generate-bill', (req, res) => {
       continued: false // Empêche le texte de continuer à la ligne suivante
     })
     doc.font('Helvetica-Bold'); // Set font to bold
-    doc.text('FACT N° 0001', centerX+40, 175)
+    doc.text('FACT N° '+numeroFacture, centerX+40, 175)
     //num Facture donnée
     // doc.text(num, centerX+40, 130)
 

@@ -21,9 +21,10 @@ class BillRepository {
       const remiseData = remise? remise : 0;
       const result = await db.query(`INSERT INTO public.bill(bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name) VALUES (DEFAULT, '${newBillNum}', '${totalPrice}', '${date}', '${remiseData}', '${customerId}', '${customerName}') RETURNING bill_id;`);
       
-      // for (const articleData of articleDatas) {
-      //   await db.query(`INSERT INTO public.bill_detail(bill_detail_id, quantity, unite_price, amount, bill_id, article_id) VALUES (DEFAULT, '${articleData.quantity}', '${articleData.price}', '${articleData.total}', '${result.rows[0].bill_id}', ${articleData.idArticle}) ;`);
-      // }
+      for (const articleData of articleDatas) {
+        await db.query(`INSERT INTO public.bill_detail(bill_detail_id, quantity, unite_price, amount, bill_id, article_id) VALUES (DEFAULT, '${articleData.quantity}', '${articleData.price}', '${articleData.total}', '${result.rows[0].bill_id}', ${articleData.idArticle}) ;`);
+      }
+      return newBillNum;
     } catch (err) {
       console.error('Error fetching bills:', err);
       throw new Error('Internal server error');

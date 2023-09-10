@@ -137,7 +137,9 @@
                 },
                 body: JSON.stringify(dataToSend)
             })
-            .then(response => {
+            .then(response1 => response1.json())
+            .then(data => {
+                dataToSend.numeroFacture = data;
                 // Perform AJAX request to the backend to generate and download the bill
                 fetch('/generate-bill', {
                     method: 'POST',
@@ -196,7 +198,7 @@
                 optionsContainer.append($("<div>", {
                   class: "option-item",
                   text: option.text,
-                  click: function() {console.log(33, option)
+                  click: function() {
                     let prixVente = option.pvDet;
                     let unit = option.unite;
                     let id= option.id;
