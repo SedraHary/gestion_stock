@@ -70,7 +70,10 @@ CREATE TABLE public.bill (
     bill_id integer NOT NULL,
     bill_number character varying(100) NOT NULL,
     bill_total_price numeric(15,2),
-    bill_date date
+    bill_date date,
+    remise numeric(15,2),
+    id_customer integer,
+    customer_name character varying(100)
 );
 
 
@@ -506,7 +509,24 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 -- Data for Name: bill; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.bill (bill_id, bill_number, bill_total_price, bill_date) FROM stdin;
+COPY public.bill (bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name) FROM stdin;
+27	1	137000.00	2023-09-11	2000.00	0	test
+28	2	137000.00	2023-09-11	2000.00	0	test
+29	3	6000.00	2023-09-11	500.00	0	test
+30	5	233333.00	2023-08-09	500.00	1	HAHA
+31	6	6000.00	2023-09-11	200.00	0	ttt
+32	7	6000.00	2023-09-11	0.00	0	ttt
+33	8	6000.00	2023-09-11	5.00	0	ttt
+34	9	6000.00	2023-09-11	5.00	0	yy
+35	10	3000.00	2023-09-11	4.00	0	tt
+36	10	3000.00	2023-09-11	4.00	0	tt
+37	10	3000.00	2023-09-11	0.00	0	t
+38	10	3000.00	2023-09-11	0.00	0	eee
+39	10	3000.00	2023-09-11	0.00	0	eee
+40	10	3000.00	2023-09-11	0.00	0	eee
+41	10	3000.00	2023-09-11	0.00	0	eee
+42	10	3000.00	2023-09-11	0.00	0	eee
+43	10	3000.00	2023-09-11	0.00	0	eee
 \.
 
 
@@ -515,6 +535,19 @@ COPY public.bill (bill_id, bill_number, bill_total_price, bill_date) FROM stdin;
 --
 
 COPY public.bill_detail (bill_detail_id, quantity, unite_price, amount, bill_id, article_id) FROM stdin;
+16	5	3000.00	15000.00	27	79
+17	4	13000.00	52000.00	27	61
+18	2	35000.00	70000.00	27	47
+19	5	3000.00	15000.00	28	79
+20	4	13000.00	52000.00	28	61
+21	2	35000.00	70000.00	28	47
+22	2	3000.00	6000.00	29	79
+23	1	3000.00	3000.00	38	79
+24	1	3000.00	3000.00	39	79
+25	1	3000.00	3000.00	40	79
+26	1	3000.00	3000.00	41	79
+27	1	3000.00	3000.00	42	79
+28	1	3000.00	3000.00	43	79
 \.
 
 
@@ -524,6 +557,7 @@ COPY public.bill_detail (bill_detail_id, quantity, unite_price, amount, bill_id,
 
 COPY public.customer (customerid, customername, customerlastname, customer_contact, customercode) FROM stdin;
 1	RANAIVO	Richard2	0324367489	000004
+11	RAKOTO	Soa	0324561789	0007
 \.
 
 
@@ -7064,21 +7098,21 @@ SELECT pg_catalog.setval('public.article_articleid_seq', 79, true);
 -- Name: bill_bill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bill_bill_id_seq', 1, false);
+SELECT pg_catalog.setval('public.bill_bill_id_seq', 43, true);
 
 
 --
 -- Name: bill_detail_bill_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bill_detail_bill_detail_id_seq', 1, false);
+SELECT pg_catalog.setval('public.bill_detail_bill_detail_id_seq', 28, true);
 
 
 --
 -- Name: customer_customerid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_customerid_seq', 10, true);
+SELECT pg_catalog.setval('public.customer_customerid_seq', 11, true);
 
 
 --
