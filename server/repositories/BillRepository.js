@@ -17,7 +17,7 @@ class BillRepository {
     
     try {
       const lastBillNum = await db.query(`SELECT MAX(bill_number) AS lastNumber FROM public.bill;`);
-      const newBillNum = parseInt(lastBillNum.rows[0].lastnumber)+1;
+      const newBillNum = isNaN(parseInt(lastBillNum.rows[0].lastnumber)+1)? 1 : parseInt(lastBillNum.rows[0].lastnumber)+1;
       const result = await db.query(`INSERT INTO public.bill(bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name) VALUES (DEFAULT, '${newBillNum}', '${totalPrice}', '${date}', '${remise}', '${customerId}', '${customerName}') RETURNING bill_id;`);
       
       for (const articleData of articleDatas) {
