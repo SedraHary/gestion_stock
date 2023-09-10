@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+    let idClient = 0;
     $(document).ready(function() {
         var clientOption = [];
         var articleOption = [];
@@ -69,11 +69,19 @@
                   click: function() {
                     let value = option.value? option.value : input;
                     $("#searchInput").val(option.text);
+                    idClient = option.id;
                     optionsContainer.empty(); // Cacher les options après sélection
                   }
                 }));
               }
+              let texteTrouve = clientOption.some(objet => objet["text"] === $("#searchInput").val());
+              if(!texteTrouve){
+                idClient = 0;
+              }
+            //   console.log(11, $("#searchInput").val())
+            //   console.log(12, clientOption)
             });
+            
         });
 
 
@@ -86,8 +94,10 @@
                 var unity = $(this).find(".unity").val();
                 var price = $(this).find(".price").val();
                 var total = $(this).find(".total").text();
+                var idArticle = $(this).find(".idArticle").val();
 
                 var item = {
+                    idArticle:idArticle,
                     description: description,
                     quantity: quantity,
                     unity: unity,
@@ -103,8 +113,15 @@
             var totalAvant = $("#invoice-total").text();
             var totalApres = $("#invoice-totalTTC").text();
             var agent = sessionStorage.getItem('userAgentCode');
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const formattedDate = `${day}-${month}-${year}`;
             var dataToSend = {
+                clientId : idClient,
                 client : clientValue,
+                dateFacture : formattedDate,
                 articleData : articleData,
                 remise : remise,
                 totalApres : totalApres,
@@ -113,25 +130,38 @@
             }
             // console.log(dataToSend);
 
-            // Perform AJAX request to the backend to generate and download the bill
-            // fetch('/generate-bill', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(dataToSend)
-            // })
-            // .then(response => response.blob())
-            // .then(blob => {
-            //     const url = URL.createObjectURL(blob);
-            //     const a = document.createElement('a');
-            //     a.href = url;
-            //     a.download = 'Facture.pdf';
-            //     a.click();
-            // })
-            // .catch(error => {
-            //     console.error('Error generating bill:', error);
-            // });
+            fetch("/api/addBill", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            })
+            .then(response => {
+                // Perform AJAX request to the backend to generate and download the bill
+                fetch('/generate-bill', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataToSend)
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Facture.pdf';
+                    a.click();
+                })
+                .catch(error => {
+                    console.error('Error downloading bill:', error);
+                });
+            })
+            .catch(error => {
+                console.error('Error saving bill:', error);
+            });
+            
         })
 
         //Création fature
@@ -142,6 +172,7 @@
 
         addItemButton.on('click', function() {
             const newRow = $('<tr>\
+            <td hidden><input type="text" class="idArticle"></td>\
             <td><input type="text" class="description" placeholder="Désignation"></td>\
             <td><input type="number" class="quantity" placeholder="Quantité"></td>\
             <td><input type="text" class="unity" placeholder="Unité"></td>\
@@ -165,12 +196,14 @@
                 optionsContainer.append($("<div>", {
                   class: "option-item",
                   text: option.text,
-                  click: function() {
+                  click: function() {console.log(33, option)
                     let prixVente = option.pvDet;
                     let unit = option.unite;
+                    let id= option.id;
                     $descriptionInput.val(option.text);
                     $descriptionInput.closest("tr").find(".unity").val(unit);
                     $descriptionInput.closest("tr").find(".price").val(parseInt(prixVente).toFixed(2));
+                    $descriptionInput.closest("tr").find(".idArticle").val(id);
                     
                     const quantity = parseFloat($descriptionInput.closest("tr").find(".quantity").val());
                     const price = parseFloat($descriptionInput.closest("tr").find(".price").val());
