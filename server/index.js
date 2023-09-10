@@ -29,7 +29,7 @@ app.post('/generate-bill', (req, res) => {
 
     // Create a PDF document
     const doc = new PDFDocument({
-      size: [400, 500], // Width and height in points
+      size: [420, 500], // Width and height in points
     });
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename=sales_bill.pdf');
@@ -52,7 +52,7 @@ app.post('/generate-bill', (req, res) => {
 
     doc.fontSize(11);
     doc.fillColor('black'); // Set text color to blue
-    doc.text('AGENT : '+agent, 25, 160)
+    doc.text('AGENT : '+agent, 10, 160)
     doc.text('CLIENT : '+client, pdfWidth-170, 160, {
       width: 200, // Spécifiez la largeur maximale pour le texte
       align: 'left', // Alignement du texte
@@ -93,12 +93,12 @@ app.post('/generate-bill', (req, res) => {
       tableData.push(rowData);
     });
     const tableTop = 210;
-    const tableLeft = 25;
-    const colWidth = 70;
-    const rowHeight = 20;
+    const tableLeft = 10;
+    const colWidth = 80;
+    const rowHeight = 25;
 
     doc.font('Helvetica-Bold');
-    doc.fontSize(10);
+    doc.fontSize(9);
 
     // Draw table headers
     drawCell(tableData[0], tableTop, true);
@@ -127,6 +127,7 @@ app.post('/generate-bill', (req, res) => {
     const sommeChiffre = totalApres;
     const sommeLettre = utils.convertAmountToWords(sommeChiffre);
     
+    doc.moveDown();
     doc.moveDown();
     doc.text('Total : '+total+' Ar',centerX+50 )
     doc.moveDown();
