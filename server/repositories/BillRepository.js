@@ -40,6 +40,9 @@ class BillRepository {
       
       for (const articleData of articleDatas) {
         await db.query(`INSERT INTO public.bill_detail(bill_detail_id, quantity, unite_price, amount, bill_id, article_id) VALUES (DEFAULT, '${articleData.quantity}', '${articleData.price}', '${articleData.total}', '${result.rows[0].bill_id}', ${articleData.idArticle}) ;`);
+        const quantityData = await db.query(`SELECT quantity FROM public.article WHERE articleId=${articleData.idArticle};`);
+        const newQuantity = quantityData.rows[0].quantity-parseInt(articleData.quantity);
+        await db.query(`UPDATE public.article SET quantity=${newQuantity} WHERE articleId=${articleData.idArticle};`);
       }
       return newBillNum;
     } catch (err) {
