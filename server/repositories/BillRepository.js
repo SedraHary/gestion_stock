@@ -10,12 +10,22 @@ class BillRepository {
         var oneData = oneBill;
         const resultBillDetail = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id =${oneBill.bill_id} ;`);
         oneData.detail = resultBillDetail.rows;
-        
+
         alldatas.push(oneData);
       }
       return alldatas;
     } catch (err) {
       console.error('Error fetching bills:', err);
+      throw new Error('Internal server error');
+    }
+  }
+
+  async deleteBill(idBill) {
+    try {
+      const alldatas = [];
+      await db.query(`DELETE FROM public.bill WHERE bill_id = ${idBill};`);
+    } catch (err) {
+      console.error('Error deleting bills:', err);
       throw new Error('Internal server error');
     }
   }

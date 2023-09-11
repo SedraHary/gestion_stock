@@ -21,7 +21,19 @@ const addBill = async (req, res) => {
   }
 };
 
+const deleteBill = async (req, res) => {
+  try {
+    const bill = req.body;
+    const billResponse = await billRepository.deleteBill(bill.idFacture);
+    res.status(200).json(billResponse);
+  } catch (err) {
+    console.error('Error deleting bills:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getBills,
   addBill,
+  deleteBill,
 };

@@ -226,6 +226,33 @@
               }
             });
         });
+        //Annulation Facture
+        $('#facturesTable').on('click', '.delete-btn', function(event) {
+            var ligne = $(this).closest('tr');
+            var facture = ligne.data('facture');
+            var idFacture = facture.bill_id;
+            var dataFacture = {
+                idFacture: idFacture
+            }
+            if (confirm("Êtes-vous sûr de vouloir annuler cette facture ?")) {
+                fetch("/api/deleteBill", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataFacture)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Annulation effectué.');
+                    getFactures();
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                });
+            }
+        });
+        
         $("#remise").on("input", function() {
             let remiseValue = $(this).val();
             let remise = !isNaN(remiseValue)? parseInt(remiseValue).toFixed(2) : remiseValue.toFixed(2);
