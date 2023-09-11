@@ -4,6 +4,7 @@
     $(document).ready(function() {
         var clientOption = [];
         var articleOption = [];
+        var isValid = false;
         $("#factureMenu").on('click', function(){
             getFactures();
         })
@@ -23,7 +24,7 @@
         .then((data) => {
             var newData = data.map(function(option) {
                 let article = option.articleName+" "+option.articleDetail+" "+option.articleUnit;
-                return { text: article, value: option.articleName, id: option.articleId, unite: option.articleUnit, pvDet: option.articlePVDet};
+                return { text: article, value: option.articleName, id: option.articleId, unite: option.articleUnit, pvDet: option.articlePVDet, quantity: option.articleQuantity};
             });
             articleOption = newData;
         })
@@ -81,8 +82,6 @@
               if(!texteTrouve){
                 idClient = 0;
               }
-            //   console.log(11, $("#searchInput").val())
-            //   console.log(12, clientOption)
             });
             
         });
@@ -90,86 +89,89 @@
 
         $("#generate-invoice").on("click", function() {
             var articleData = [];
-
-            $("#item-list tr").each(function() {
-                var description = $(this).find(".description").val();
-                var quantity = $(this).find(".quantity").val();
-                var unity = $(this).find(".unity").val();
-                var price = $(this).find(".price").val();
-                var total = $(this).find(".total").text();
-                var idArticle = $(this).find(".idArticle").val();
-
-                var item = {
-                    idArticle:idArticle,
-                    description: description,
-                    quantity: quantity,
-                    unity: unity,
-                    price: price,
-                    total: total
-                };
-
-                articleData.push(item);
-            });
-
-            var clientValue = $("#searchInput").val();
-            var remise = $("#remise").val();
-            var totalAvant = $("#invoice-total").text();
-            var totalApres = $("#invoice-totalTTC").text();
-            var agent = sessionStorage.getItem('userAgentCode');
-            const currentDate = new Date();
-            const year = currentDate.getFullYear();
-            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-            const day = String(currentDate.getDate()).padStart(2, '0');
-            const formattedDate = `${day}-${month}-${year}`;
-            var dataToSend = {
-                clientId : idClient,
-                client : clientValue,
-                dateFacture : formattedDate,
-                articleData : articleData,
-                remise : remise,
-                totalApres : totalApres,
-                totalAvant : totalAvant,
-                agent : agent
-            }
-            // console.log(dataToSend);
-
-            fetch("/api/addBill", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            })
-            .then(response1 => response1.json())
-            .then(data => {
-                dataToSend.numeroFacture = data;
-                // Perform AJAX request to the backend to generate and download the bill
-                fetch('/generate-bill', {
-                    method: 'POST',
+            if (isValid){
+                $("#item-list tr").each(function() {
+                    var description = $(this).find(".description").val();
+                    var quantity = $(this).find(".quantity").val();
+                    var unity = $(this).find(".unity").val();
+                    var price = $(this).find(".price").val();
+                    var total = $(this).find(".total").text();
+                    var idArticle = $(this).find(".idArticle").val();
+    
+                    var item = {
+                        idArticle:idArticle,
+                        description: description,
+                        quantity: quantity,
+                        unity: unity,
+                        price: price,
+                        total: total
+                    };
+    
+                    articleData.push(item);
+                });
+    
+                var clientValue = $("#searchInput").val();
+                var remise = $("#remise").val();
+                var totalAvant = $("#invoice-total").text();
+                var totalApres = $("#invoice-totalTTC").text();
+                var agent = sessionStorage.getItem('userAgentCode');
+                const currentDate = new Date();
+                const year = currentDate.getFullYear();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const formattedDate = `${day}-${month}-${year}`;
+                var dataToSend = {
+                    clientId : idClient,
+                    client : clientValue,
+                    dateFacture : formattedDate,
+                    articleData : articleData,
+                    remise : remise,
+                    totalApres : totalApres,
+                    totalAvant : totalAvant,
+                    agent : agent
+                }
+                // console.log(dataToSend);
+    
+                fetch("/api/addBill", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(dataToSend)
                 })
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Facture.pdf';
-                    a.click();
+                .then(response1 => response1.json())
+                .then(data => {
+                    dataToSend.numeroFacture = data;
+                    // Perform AJAX request to the backend to generate and download the bill
+                    fetch('/generate-bill', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dataToSend)
+                    })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'Facture.pdf';
+                        a.click();
+                    })
+                    .catch(error => {
+                        console.error('Error downloading bill:', error);
+                    });
+                })
+                .then(data2 => {
+                    getFactures();
                 })
                 .catch(error => {
-                    console.error('Error downloading bill:', error);
+                    console.error('Error saving bill:', error);
                 });
-            })
-            .then(data2 => {
-                getFactures();
-            })
-            .catch(error => {
-                console.error('Error saving bill:', error);
-            });
-            
+            }else{
+                alert("Veuillez bien vérifier la formulaire.");
+            }
+             
         })
 
         //Afficher détail facture
@@ -191,12 +193,7 @@
                 ligne.append('<td>' + facture.amount + '</td>');
                     
                 tableauResultat.append(ligne);
-            });
-            // sessionStorage.setItem("userSelectedId", user.userId);
-            // $("#codeAgentUpdate").val(user.userAgentCode);
-            // $("#nomUtilisateurUpdate").val(user.userName);
-            // $("#typeCompteUpdate").val(user.userType);
-            // $("#passwordUtilisateurUpdate").val(user.userPassword);       
+            });   
         });
 
         //Création fature
@@ -235,18 +232,19 @@
                     let prixVente = option.pvDet;
                     let unit = option.unite;
                     let id= option.id;
+                    let quantityDispo = option.quantity;
                     $descriptionInput.val(option.text);
                     $descriptionInput.closest("tr").find(".unity").val(unit);
                     $descriptionInput.closest("tr").find(".price").val(parseInt(prixVente).toFixed(2));
                     $descriptionInput.closest("tr").find(".idArticle").val(id);
+                    $descriptionInput.closest("tr").find(".quantityDispo").val(quantityDispo);
                     
                     const quantity = parseFloat($descriptionInput.closest("tr").find(".quantity").val());
                     const price = parseFloat($descriptionInput.closest("tr").find(".price").val());
                     const rowTotal = quantity * price;
                     let totalRow = !isNaN(rowTotal)? rowTotal.toFixed(2) : parseInt('0');
                     $descriptionInput.closest("tr").find(".total").text(totalRow);
-                    // $(this).siblings(".unity").val("hahaha");
-                    // updatePuUnit(option, $descriptionInput);
+                    
                     optionsContainer.empty(); // Cacher les options après sélection
                   }
                 }));
@@ -292,11 +290,20 @@
             let total = 0;
             const rows = itemList.find('tr');
             rows.each(function() {
-            const quantity = parseFloat($(this).find('.quantity').val());
-            const price = parseFloat($(this).find('.price').val());
-            const rowTotal = quantity * price;
-            $(this).find('.total').text(rowTotal.toFixed(2));
-            total += rowTotal;
+                const quantityDispo = parseFloat($(this).find('.quantityDispo').val());
+                const quantity = parseFloat($(this).find('.quantity').val());
+                // console.log(44,quantityDispo)
+                if(quantityDispo<quantity){
+                    alert('Stock en manque!');
+                    isValid=false;
+                }else{
+                    isValid=true;
+                    const price = parseFloat($(this).find('.price').val());
+                    const rowTotal = quantity * price;
+                    $(this).find('.total').text(rowTotal.toFixed(2));
+                    total += rowTotal;
+                }
+                
             });
             invoiceTotalElement.text(total.toFixed(2));
         }
