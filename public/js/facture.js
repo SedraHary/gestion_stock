@@ -172,6 +172,33 @@
             
         })
 
+        //Afficher détail facture
+        $("#facturesTable").on('click', '.edit-btn',function() {
+            $("#factureDetail").modal("show");
+            var ligne = $(this).closest('tr');
+            var facture = ligne.data('facture');
+            // console.log(facture)
+            $("#factureLabel").text(`Détail facture n° ${facture.bill_id}`);
+            $("#numAgentFacture").val(facture.agent_id);
+            $("#remiseFacture").val(facture.remise);
+            $("#prixTotalFacture").val(facture.bill_total_price);
+            const tableauResultat = $('#factureDetailTable tbody');
+            facture.detail.forEach(facture => {
+                const ligne = $('<tr>');
+                ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
+                ligne.append('<td>' + facture.article_id + '</td>');
+                ligne.append('<td>' + facture.quantity + '</td>');
+                ligne.append('<td>' + facture.amount + '</td>');
+                    
+                tableauResultat.append(ligne);
+            });
+            // sessionStorage.setItem("userSelectedId", user.userId);
+            // $("#codeAgentUpdate").val(user.userAgentCode);
+            // $("#nomUtilisateurUpdate").val(user.userName);
+            // $("#typeCompteUpdate").val(user.userType);
+            // $("#passwordUtilisateurUpdate").val(user.userPassword);       
+        });
+
         //Création fature
         const addItemButton = $('#add-item');
         const itemList = $('#item-list');
@@ -242,8 +269,7 @@
                     },
                     body: JSON.stringify(dataFacture)
                 })
-                .then(response => response.json())
-                .then(data => {
+                .then(response => {
                     alert('Annulation effectué.');
                     getFactures();
                 })
@@ -252,7 +278,7 @@
                 });
             }
         });
-        
+
         $("#remise").on("input", function() {
             let remiseValue = $(this).val();
             let remise = !isNaN(remiseValue)? parseInt(remiseValue).toFixed(2) : remiseValue.toFixed(2);

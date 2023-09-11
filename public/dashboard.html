@@ -650,6 +650,49 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal modification client-->
+            <div class="modal fade" id="factureDetail" aria-labelledby="factureLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="factureLabel"></h5>
+                        <button id="closeClientModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formulaire -->
+                        
+                        <form>
+                            <div class="mb-3">
+                                <label for="agent" class="form-label">Agent</label>
+                                <input type="text" class="form-control" id="numAgentFacture" readonly >
+                            </div>
+                            <!-- Tableau pour afficher la liste des produits -->
+                            <table class="table" id="factureDetailTable">
+                                <thead>
+                                    <tr>
+                                        <th>Désignation</th>
+                                        <th>Qté</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div class="mb-3">
+                                <label for="remise" class="form-label">Remise</label>
+                                <input type="text" class="form-control" id="remiseFacture" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="totalPayer" class="form-label">Total payé</label>
+                                <input type="text" class="form-control" id="prixTotalFacture" readonly>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Gestion facture End -->
 
         </div>

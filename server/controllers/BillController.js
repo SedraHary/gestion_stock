@@ -13,7 +13,7 @@ const getBills = async (req, res) => {
 const addBill = async (req, res) => {
   try {
     const bill = req.body;
-    const billResponse = await billRepository.insertBill(bill.remise, bill.clientId, bill.dateFacture, bill.totalAvant, bill.client, bill.articleData);
+    const billResponse = await billRepository.insertBill(bill.agent, bill.remise, bill.clientId, bill.dateFacture, bill.totalAvant, bill.client, bill.articleData);
     res.status(200).json(billResponse);
   } catch (err) {
     console.error('Error fetching bills:', err);

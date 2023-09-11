@@ -30,13 +30,13 @@ class BillRepository {
     }
   }
 
-  async insertBill(remise,customerId,date,totalPrice,customerName, articleDatas) {
+  async insertBill(agentId,remise,customerId,date,totalPrice,customerName, articleDatas) {
     
     try {
       const lastBillNum = await db.query(`SELECT MAX(bill_number) AS lastNumber FROM public.bill;`);
       const newBillNum = isNaN(parseInt(lastBillNum.rows[0].lastnumber)+1)? 1 : parseInt(lastBillNum.rows[0].lastnumber)+1;
       const remiseData = remise? remise : 0;
-      const result = await db.query(`INSERT INTO public.bill(bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name) VALUES (DEFAULT, '${newBillNum}', '${totalPrice}', '${date}', '${remiseData}', '${customerId}', '${customerName}') RETURNING bill_id;`);
+      const result = await db.query(`INSERT INTO public.bill(bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name, agent_id) VALUES (DEFAULT, '${newBillNum}', '${totalPrice}', '${date}', '${remiseData}', '${customerId}', '${customerName}', '${agentId}') RETURNING bill_id;`);
       
       for (const articleData of articleDatas) {
         await db.query(`INSERT INTO public.bill_detail(bill_detail_id, quantity, unite_price, amount, bill_id, article_id) VALUES (DEFAULT, '${articleData.quantity}', '${articleData.price}', '${articleData.total}', '${result.rows[0].bill_id}', ${articleData.idArticle}) ;`);
