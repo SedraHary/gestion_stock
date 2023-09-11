@@ -185,6 +185,7 @@
             $("#remiseFacture").val(facture.remise);
             $("#prixTotalFacture").val(facture.bill_total_price);
             const tableauResultat = $('#factureDetailTable tbody');
+            $('#factureDetailTable tbody tr').remove();
             facture.detail.forEach(facture => {
                 const ligne = $('<tr>');
                 ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id

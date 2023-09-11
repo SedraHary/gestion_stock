@@ -22,8 +22,14 @@ class BillRepository {
 
   async deleteBill(idBill) {
     try {
-      const alldatas = [];
-      await db.query(`DELETE FROM public.bill WHERE bill_id = ${idBill};`);
+      const detailDatas = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id=${idBill};`);
+      for (const detailData of detailDatas.rows) {
+        const quantityData = await db.query(`SELECT quantity FROM public.article WHERE articleId=${detailData.article_id};`);
+        const newQuantity = quantityData.rows[0].quantity+parseInt(detailData.quantity);
+        await db.query(`UPDATE public.article SET quantity=${newQuantity} WHERE articleId=${detailData.article_id};`);
+        await db.query(`DELETE FROM public.bill WHERE bill_id = ${idBill};`);
+      }
+      
     } catch (err) {
       console.error('Error deleting bills:', err);
       throw new Error('Internal server error');
