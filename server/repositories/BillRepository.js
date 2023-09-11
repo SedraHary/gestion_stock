@@ -4,9 +4,16 @@ const Bill = require('../entity/Bill');
 class BillRepository {
   async getAllBills() {
     try {
-      const result = await db.query('SELECT * FROM public.bill');
-      //TODO:replace field database
-      return result.rows.map((row) => new Bill(row.billid, row.billagentcode, row.billname, row.billtype, row.password));
+      const alldatas = [];
+      const resultBill = await db.query('SELECT * FROM public.bill');
+      for (const oneBill of resultBill.rows){
+        var oneData = oneBill;
+        const resultBillDetail = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id =${oneBill.bill_id} ;`);
+        oneData.detail = resultBillDetail.rows;
+        
+        alldatas.push(oneData);
+      }
+      return alldatas;
     } catch (err) {
       console.error('Error fetching bills:', err);
       throw new Error('Internal server error');
@@ -30,6 +37,7 @@ class BillRepository {
       throw new Error('Internal server error');
     }
   }
+  
 }
 
 module.exports = new BillRepository();

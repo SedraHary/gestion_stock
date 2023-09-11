@@ -4,7 +4,10 @@
     $(document).ready(function() {
         var clientOption = [];
         var articleOption = [];
-
+        $("#factureMenu").on('click', function(){
+            getFactures();
+        })
+        
         fetch("/api/articles", {
             method: "GET",
             headers: {
@@ -160,6 +163,9 @@
                     console.error('Error downloading bill:', error);
                 });
             })
+            .then(data2 => {
+                getFactures();
+            })
             .catch(error => {
                 console.error('Error saving bill:', error);
             });
@@ -257,6 +263,35 @@
             total += totalRow;
             });
             invoiceTotalElement.text(total.toFixed(2));
+        }
+        function getFactures(){
+            fetch("/api/bills",{
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // console.log(12, data)
+                const tableauResultat = $('#facturesTable tbody');
+                $('#facturesTable tbody tr').remove();
+                data.forEach(facture => {
+                    const ligne = $('<tr>');
+                    ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
+                    ligne.append('<td>' + facture.bill_number + '</td>');
+                    ligne.append('<td>' + facture.customer_name + '</td>');
+                    ligne.append('<td>' + facture.bill_date.slice(0,10) + '</td>');
+                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-eye"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-undo"></i></button></div>');
+                    // ligne.append('</tr>')
+                    tableauResultat.append(ligne);
+                });
+            })
         }
     })
     

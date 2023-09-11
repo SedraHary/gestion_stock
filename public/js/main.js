@@ -22,6 +22,9 @@
             $('#userContent').attr("hidden",true);
             $('#clientFournisseurContent').attr("hidden",true);
             $('#factureContent').attr("hidden",false);
+            $('#facturesTable').attr("hidden",true);
+        }else{
+            $('#facturesTable').attr("hidden",false);
         }
 
         fetch("/api/users", {
