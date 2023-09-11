@@ -32,7 +32,7 @@
                 ligne.append('<td>' + article.articlePvGros + '</td>');
                 ligne.append('<td>' + article.articlePvRev + '</td>');
                 ligne.append('<td>' + article.articlePa + '</td>');
-                ligne.append( '<td>' + article.articleQuantity + '</td>');
+                ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                 ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                 // ligne.append('</tr>')
                 tableauResultat.append(ligne);
@@ -118,7 +118,7 @@
                     ligne.append('<td>' + article.articlePvGros + '</td>');
                     ligne.append('<td>' + article.articlePvRev + '</td>');
                     ligne.append('<td>' + article.articlePa + '</td>');
-                    ligne.append( '<td>' + article.articleQuantity + '</td>');
+                    ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                     ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
@@ -168,7 +168,7 @@
                         ligne.append('<td>' + article.articlePvGros + '</td>');
                         ligne.append('<td>' + article.articlePvRev + '</td>');
                         ligne.append('<td>' + article.articlePa + '</td>');
-                        ligne.append( '<td>' + article.articleQuantity + '</td>');
+                        ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                         ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                         // ligne.append('</tr>')
                         tableauResultat.append(ligne);
@@ -237,7 +237,7 @@
                     ligne.append('<td>' + article.articlePvGros + '</td>');
                     ligne.append('<td>' + article.articlePvRev + '</td>');
                     ligne.append('<td>' + article.articlePa + '</td>');
-                    ligne.append( '<td>' + article.articleQuantity + '</td>');
+                    ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                     ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                     // ligne.append('</tr>')
                     tableauResultat.append(ligne);
@@ -280,7 +280,7 @@
                    ligne.append('<td>' + article.articlePvGros + '</td>');
                    ligne.append('<td>' + article.articlePvRev + '</td>');
                    ligne.append('<td>' + article.articlePa + '</td>');
-                   ligne.append( '<td>' + article.articleQuantity + '</td>');
+                   ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                    // ligne.append('</tr>')
                    tableauResultat.append(ligne);
@@ -323,7 +323,7 @@
                    ligne.append('<td>' + article.articlePvGros + '</td>');
                    ligne.append('<td>' + article.articlePvRev + '</td>');
                    ligne.append('<td>' + article.articlePa + '</td>');
-                   ligne.append( '<td>' + article.articleQuantity + '</td>');
+                   ligne.append( article.articleQuantity===0?'<td style="color: red;">' + article.articleQuantity + '</td>': '<td>' + article.articleQuantity + '</td>');
                    ligne.append('<div class="btn-group" role="group" aria-label="Actions"><button class="btn btn-primary btn-sm edit-btn ml-2"><i class="fas fa-edit"></i></i></button><button class="btn btn-danger btn-sm delete-btn ml-2"><i class="fas fa-trash"></i></button></div>');
                    // ligne.append('</tr>')
                    tableauResultat.append(ligne);
