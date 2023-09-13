@@ -8,7 +8,9 @@ class BillRepository {
       const resultBill = await db.query('SELECT * FROM public.bill');
       for (const oneBill of resultBill.rows){
         var oneData = oneBill;
-        const resultBillDetail = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id =${oneBill.bill_id} ;`);
+        // var artilce = {};
+        const resultBillDetail = await db.query(`SELECT public.bill_detail.*,public.article.articlename, public.article.articledetail, public.article.articlepa FROM public.bill_detail  INNER JOIN public.article ON public.bill_detail.article_id = public.article.articleid WHERE public.bill_detail.bill_id =${oneBill.bill_id} ;`);
+        // const resultPrixAchat = await db.query(`SELECT articlename, articledetail, articlepa FROM public.article WHERE articleid =${oneBill.bill_id} ;`);
         oneData.detail = resultBillDetail.rows;
 
         alldatas.push(oneData);
@@ -51,6 +53,25 @@ class BillRepository {
         await db.query(`UPDATE public.article SET quantity=${newQuantity} WHERE articleId=${articleData.idArticle};`);
       }
       return newBillNum;
+    } catch (err) {
+      console.error('Error fetching bills:', err);
+      throw new Error('Internal server error');
+    }
+  }
+
+  async getBenefice() {
+    try {
+      const alldatas = [];
+      const resultBill = await db.query('SELECT * FROM public.bill');
+      for (const oneBill of resultBill.rows){
+        var oneData = oneBill;
+        const resultBillDetail = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id =${oneBill.bill_id} ;`);
+        const resultPrixAchat = await db.query(`SELECT * FROM public.bill_detail WHERE bill_id =${oneBill.bill_id} ;`);
+        oneData.detail = resultBillDetail.rows;
+
+        alldatas.push(oneData);
+      }
+      return alldatas;
     } catch (err) {
       console.error('Error fetching bills:', err);
       throw new Error('Internal server error');

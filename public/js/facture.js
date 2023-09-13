@@ -189,7 +189,7 @@
             facture.detail.forEach(facture => {
                 const ligne = $('<tr>');
                 ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
-                ligne.append('<td>' + facture.article_id + '</td>');
+                ligne.append('<td>' + facture.articlename+" "+facture.articledetail + '</td>');
                 ligne.append('<td>' + facture.quantity + '</td>');
                 ligne.append('<td>' + facture.amount + '</td>');
                     

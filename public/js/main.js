@@ -416,6 +416,71 @@
         $('#clientFournisseurMenu').removeClass('active');
         $('#factureMenu').addClass('active');
     });
+
+    //Tableau de bord
+
+    const dateActuelle = new Date();
+    // Obtenez la date du mois (jour du mois)
+    const jourDuMois = dateActuelle.getDate();
+    // Obtenez le mois (numéro du mois) - Notez que les mois commencent à partir de 0 (janvier) à 11 (décembre), donc vous pouvez ajouter 1 pour obtenir le numéro du mois réel.
+    const mois = dateActuelle.getMonth() + 1;
+    // Obtenez l'année
+    const annee = dateActuelle.getFullYear();
+    //récupération date base de données: date.slice(0,10)
+    $('#chiffreAffaire').text(`Chiffre d'affaire du mois`)
+    fetch("/api/bills",{
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then((data) => {
+        // console.log(12, data)
+        const tableauResultat = $('#dashboardCATable tbody');
+        $('#dashboardCATable tbody tr').remove();
+        const tableauResultatAnnuelle = $('#dashboardAnnuelTable tbody');
+        $('#dashboardAnnuelTable tbody tr').remove();
+        const dataCa = data.filter(objet => parseInt(objet.bill_date.slice(0,4)) === annee && parseInt(objet.bill_date.slice(5,7)) === mois );
+        //Somme les même date
+        const resultat = [];
+        dataCa.forEach(objet => {//console.log("objet", parseFloat(objet.bill_total_price)+parseFloat(objet.bill_total_price))
+            const existant = resultat.find(item => item.bill_date === objet.bill_date);
+            let paTotal = 0;
+            objet.detail.forEach(detail=>{//console.log(13,detail)
+                paTotal= paTotal+parseFloat(paTotal)+parseFloat(detail.articlepa);
+            });
+
+            if (existant) {
+                existant.bill_total_price = parseFloat(existant.bill_total_price)+parseFloat(objet.bill_total_price);
+            } else {
+                resultat.push({ bill_date: objet.bill_date, bill_total_price: objet.bill_total_price, bill_benefice : parseFloat(objet.bill_total_price)-paTotal });
+            }
+        // console.log(111,parseFloat(objet.bill_total_price),paTotal)
+        });
+        
+        // console.log(112,resultat)
+        resultat.forEach(facture => {
+            const ligne = $('<tr>');
+            ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
+            ligne.append('<td>' + facture.bill_date.slice(0,10) + '</td>');
+            ligne.append('<td>' + facture.bill_total_price + '</td>');
+            ligne.append('<td>' + facture.bill_benefice + '</td>');
+            // ligne.append('</tr>')
+            tableauResultat.append(ligne);
+            const ligne2 = $('<tr>');
+            ligne2.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
+            ligne2.append('<td>' + facture.bill_date.slice(0,4) + '</td>');
+            ligne2.append('<td>' + facture.bill_total_price + '</td>');
+            ligne2.append('<td>' + facture.bill_benefice + '</td>');
+            tableauResultatAnnuelle.append(ligne2);
+        });
+    })
     
 })(jQuery);
 
