@@ -73,7 +73,8 @@ CREATE TABLE public.bill (
     bill_date date,
     remise numeric(15,2),
     id_customer integer,
-    customer_name character varying(100)
+    customer_name character varying(100),
+    agent_id character varying(10)
 );
 
 
@@ -466,11 +467,7 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 40	Peinture à l"huile&Anti-rouille	Kapci		Boite 1kg	22000.00	21500.00	21200.00	21000.00	0
 41	Peinture à l"huile&Anti-rouille	Batilac	Blanc	Boite 1kg	20000.00	19000.00	17000.00	16000.00	0
 42	Peinture à l"huile&Anti-rouille	Batilac	couleur	Boite 1kg	19000.00	18500.00	16500.00	15500.00	0
-43	Peinture à l"huile&Anti-rouille	Anti-rouille	Egycoat	Boite 1kg	14000.00	14000.00	13500.00	13000.00	0
 44	Peinture à l"huile&Anti-rouille	Anti-rouille	Golden	Boite 1kg	18000.00	16000.00	15500.00	14500.00	0
-45	Ciment et fer	Ciment	LOVA	Sac	33000.00	33000.00	32800.00	32600.00	0
-46	Ciment et fer	Ciment	Orimbato	Sac	37500.00	37500.00	37200.00	37000.00	0
-47	Ciment et fer	Ciment	Lafange	Sac	35000.00	34500.00	34200.00	34000.00	0
 48	Ciment et fer	Fer JR	Diam 6	tige	15000.00	14500.00	14500.00	14000.00	0
 49	Ciment et fer	Fer JR	Diam 8	tige	18000.00	17500.00	17500.00	17000.00	0
 50	Ciment et fer	Fer JR	Diam 10	tige	27500.00	27000.00	26800.00	25800.00	0
@@ -483,9 +480,7 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 57	Huile&Graisse&liquide frein	Huile 40	Select	bidon	54000.00	54000.00	53000.00	51500.00	0
 58	Huile&Graisse&liquide frein	Huile 90	Elite	bidon	70000.00	70000.00	69000.00	65000.00	0
 59	Huile&Graisse&liquide frein	Huile 140	Elite	bidon	79000.00	79000.00	78000.00	75000.00	0
-60	Huile&Graisse&liquide frein	Huile ATF	Boss	bidon	13000.00	13000.00	12500.00	12000.00	0
 61	Huile&Graisse&liquide frein	Huile ATF	Euro	bidon	13000.00	13000.00	12500.00	12000.00	0
-62	Huile&Graisse&liquide frein	Graisse	Boss	Boite	18000.00	18000.00	17500.00	16500.00	0
 63	Huile&Graisse&liquide frein	Graisse	Euro	Boite	17000.00	17000.00	16500.00	15500.00	0
 64	Huile&Graisse&liquide frein	Liquide 55		Boite	11000.00	10000.00	9500.00	9000.00	0
 65	Huile&Graisse&liquide frein	Liquide E5		Boite	11000.00	10000.00	9500.00	9000.00	0
@@ -500,6 +495,12 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 75	Mastic et bombe	Bombe	Spray Paint	tube	7500.00	7500.00	7500.00	6000.00	0
 76	Peinture à l'eau et teinte	3F1 Color	4kg	boite	17000.00	16000.00	13000.00	10600.00	0
 79	Peinture à l'eau et teinte	Teinte	Uniteinte	flacon	3000.00	3000.00	2800.00	2500.00	0
+60	Huile&Graisse&liquide frein	Huile ATF	Boss	bidon	13000.00	13000.00	12500.00	12000.00	0
+62	Huile&Graisse&liquide frein	Graisse	Boss	Boite	18000.00	18000.00	17500.00	16500.00	5
+43	Peinture à l"huile&Anti-rouille	Anti-rouille	Egycoat	Boite 1kg	14000.00	14000.00	13500.00	13000.00	1
+46	Ciment et fer	Ciment	Orimbato	Sac	37500.00	37500.00	37200.00	37000.00	9
+47	Ciment et fer	Ciment	Lafange	Sac	35000.00	34500.00	34200.00	34000.00	17
+45	Ciment et fer	Ciment	LOVA	Sac	33000.00	33000.00	32800.00	32600.00	24
 77	Peinture à l'eau et teinte	3F1 Color	10kg	boite	27000.00	26000.00	24500.00	23200.00	0
 78	Peinture à l'eau et teinte	3F1 Color	30kg	boite	47000.00	46000.00	44000.00	41300.00	0
 \.
@@ -509,24 +510,11 @@ COPY public.article (articleid, articlefamily, articlename, articledetail, artic
 -- Data for Name: bill; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.bill (bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name) FROM stdin;
-27	1	137000.00	2023-09-11	2000.00	0	test
-28	2	137000.00	2023-09-11	2000.00	0	test
-29	3	6000.00	2023-09-11	500.00	0	test
-30	5	233333.00	2023-08-09	500.00	1	HAHA
-31	6	6000.00	2023-09-11	200.00	0	ttt
-32	7	6000.00	2023-09-11	0.00	0	ttt
-33	8	6000.00	2023-09-11	5.00	0	ttt
-34	9	6000.00	2023-09-11	5.00	0	yy
-35	10	3000.00	2023-09-11	4.00	0	tt
-36	10	3000.00	2023-09-11	4.00	0	tt
-37	10	3000.00	2023-09-11	0.00	0	t
-38	10	3000.00	2023-09-11	0.00	0	eee
-39	10	3000.00	2023-09-11	0.00	0	eee
-40	10	3000.00	2023-09-11	0.00	0	eee
-41	10	3000.00	2023-09-11	0.00	0	eee
-42	10	3000.00	2023-09-11	0.00	0	eee
-43	10	3000.00	2023-09-11	0.00	0	eee
+COPY public.bill (bill_id, bill_number, bill_total_price, bill_date, remise, id_customer, customer_name, agent_id) FROM stdin;
+45	2	3000.00	2023-09-11	20.00	11	RAKOTO Soa	\N
+47	4	3000.00	2023-09-11	0.00	1	RANAIVO Richard2	\N
+49	5	14000.00	2023-09-11	1000.00	0	testtest	12
+51	7	66000.00	2023-09-11	600.00	0	test	12
 \.
 
 
@@ -535,19 +523,10 @@ COPY public.bill (bill_id, bill_number, bill_total_price, bill_date, remise, id_
 --
 
 COPY public.bill_detail (bill_detail_id, quantity, unite_price, amount, bill_id, article_id) FROM stdin;
-16	5	3000.00	15000.00	27	79
-17	4	13000.00	52000.00	27	61
-18	2	35000.00	70000.00	27	47
-19	5	3000.00	15000.00	28	79
-20	4	13000.00	52000.00	28	61
-21	2	35000.00	70000.00	28	47
-22	2	3000.00	6000.00	29	79
-23	1	3000.00	3000.00	38	79
-24	1	3000.00	3000.00	39	79
-25	1	3000.00	3000.00	40	79
-26	1	3000.00	3000.00	41	79
-27	1	3000.00	3000.00	42	79
-28	1	3000.00	3000.00	43	79
+31	1	3000.00	3000.00	45	79
+33	1	3000.00	3000.00	47	79
+35	1	14000.00	14000.00	49	43
+37	2	33000.00	66000.00	51	45
 \.
 
 
@@ -7098,14 +7077,14 @@ SELECT pg_catalog.setval('public.article_articleid_seq', 79, true);
 -- Name: bill_bill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bill_bill_id_seq', 43, true);
+SELECT pg_catalog.setval('public.bill_bill_id_seq', 59, true);
 
 
 --
 -- Name: bill_detail_bill_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bill_detail_bill_detail_id_seq', 28, true);
+SELECT pg_catalog.setval('public.bill_detail_bill_detail_id_seq', 47, true);
 
 
 --
@@ -7235,7 +7214,7 @@ ALTER TABLE ONLY public.bill_detail
 --
 
 ALTER TABLE ONLY public.bill_detail
-    ADD CONSTRAINT fk_relation_bill_detail FOREIGN KEY (bill_id) REFERENCES public.bill(bill_id);
+    ADD CONSTRAINT fk_relation_bill_detail FOREIGN KEY (bill_id) REFERENCES public.bill(bill_id) ON DELETE CASCADE NOT VALID;
 
 
 --
