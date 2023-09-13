@@ -3,6 +3,18 @@
     // $('#loading-overlay').addClass('show');
     // $(window).on('load', function() {
     $(document).ready(function() {
+        //Alert si il y a un stock épuisé
+        // Sélectionnez l'élément de l'alerte clignotante
+        const $alertStockEmpty = $(".stock-empty");
+        if(sessionStorage.getItem("haveZero")==="true"){
+            setInterval(function () {
+                $alertStockEmpty.removeAttr("hidden");
+                $alertStockEmpty.fadeIn(1000).fadeOut(1000);
+            }, 1000);
+        }else{
+            $alertStockEmpty.hide();
+        }
+        
         let userType=sessionStorage.getItem("userType");
         let userAgentCode=sessionStorage.getItem("userAgentCode");
         let userName=sessionStorage.getItem("userName");

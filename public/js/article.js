@@ -1,6 +1,7 @@
 (function ($) {
     "use strict";
     $(document).ready(function() {
+        let haveZero = false;
         let userType=sessionStorage.getItem("userType");
         let userAgentCode=sessionStorage.getItem("userAgentCode");
         let userName=sessionStorage.getItem("userName");
@@ -21,6 +22,8 @@
         .then((data) => {
             // Créer le tableau HTML
             const tableauResultat = $('#stockTable tbody');
+            haveZero = data.some(objet => objet.articleQuantity === 0);
+            sessionStorage.setItem("haveZero",haveZero);
             data.forEach(article => {
                 const ligne = $('<tr>');
                 ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
@@ -107,6 +110,8 @@
                 // Créer le tableau HTML
                 const tableauResultat = $('#stockTable tbody');
                 $('#stockTable tbody tr').remove();
+                haveZero = data.some(objet => objet.articleQuantity === 0);
+                sessionStorage.setItem("haveZero",haveZero);
                 data.forEach(article => {
                     const ligne = $('<tr>');
                     ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
@@ -157,6 +162,8 @@
                     // Créer le tableau HTML
                     const tableauResultat = $('#stockTable tbody');
                     $('#stockTable tbody tr').remove();
+                    haveZero = data.some(objet => objet.articleQuantity === 0);
+                    sessionStorage.setItem("haveZero",haveZero);
                     data.forEach(article => {
                         const ligne = $('<tr>');
                         ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
@@ -226,6 +233,8 @@
                 // Créer le tableau HTML
                 const tableauResultat = $('#stockTable tbody');
                 $('#stockTable tbody tr').remove();
+                haveZero = data.some(objet => objet.articleQuantity === 0);
+                sessionStorage.setItem("haveZero",haveZero);
                 data.forEach(article => {
                     const ligne = $('<tr>');
                     ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
@@ -269,7 +278,9 @@
                // Créer le tableau HTML
                const tableauResultat = $('#stockTable tbody');
                $('#stockTable tbody tr').remove();
-               data.forEach(article => {console.log(article)
+                haveZero = data.some(objet => objet.articleQuantity === 0);
+                sessionStorage.setItem("haveZero",haveZero);
+               data.forEach(article => {
                    const ligne = $('<tr>');
                    ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
                    ligne.append('<td>' + article.articleFamily + '</td>');
@@ -312,7 +323,9 @@
                // Créer le tableau HTML
                const tableauResultat = $('#stockTable tbody');
                $('#stockTable tbody tr').remove();
-               data.forEach(article => {console.log(article)
+                haveZero = data.some(objet => objet.articleQuantity === 0);
+                sessionStorage.setItem("haveZero",haveZero);
+               data.forEach(article => {
                    const ligne = $('<tr>');
                    ligne.data('article', article); // Stocker l'identifiant dans l'attribut data-id
                    ligne.append('<td>' + article.articleFamily + '</td>');
