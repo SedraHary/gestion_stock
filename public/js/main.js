@@ -449,18 +449,21 @@
         const dataCa = data.filter(objet => parseInt(objet.bill_date.slice(0,4)) === annee && parseInt(objet.bill_date.slice(5,7)) === mois );
         //Somme les même date
         const resultat = [];
+        // console.log(22,dataCa);
         dataCa.forEach(objet => {//console.log("objet", parseFloat(objet.bill_total_price)+parseFloat(objet.bill_total_price))
             const existant = resultat.find(item => item.bill_date === objet.bill_date);
             let paTotal = 0;
             objet.detail.forEach(detail=>{//console.log(13,detail)
-                paTotal= paTotal+parseFloat(paTotal)+parseFloat(detail.articlepa);
+                paTotal= paTotal+parseFloat(paTotal)+parseFloat(detail.articlepa)*parseFloat(detail.quantity);
             });
-
+            
             if (existant) {
                 existant.bill_total_price = parseFloat(existant.bill_total_price)+parseFloat(objet.bill_total_price);
+                existant.bill_benefice = parseFloat(existant.bill_benefice)+parseFloat(objet.bill_total_price)-paTotal;
             } else {
-                resultat.push({ bill_date: objet.bill_date, bill_total_price: objet.bill_total_price, bill_benefice : parseFloat(objet.bill_total_price)-paTotal });
+                resultat.push({ bill_date: objet.bill_date, bill_total_price: parseFloat(objet.bill_total_price), bill_benefice : parseFloat(objet.bill_total_price)-paTotal });
             }
+            // console.log(22,parseFloat(objet.bill_total_price));
         // console.log(111,parseFloat(objet.bill_total_price),paTotal)
         });
         

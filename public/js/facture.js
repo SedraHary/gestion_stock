@@ -5,6 +5,16 @@
         var clientOption = [];
         var articleOption = [];
         var isValid = false;
+        
+        $('#btnRefreshFacture').click(function () {
+            // location.reload();
+            $('#item-list tr').remove();
+            $('#searchInput').val('');
+            $('#remise').val('');
+            $('#invoice-total').text('');
+            $('#invoice-totalTTC').text('');
+        });
+
         $("#factureMenu").on('click', function(){
             getFactures();
         })
