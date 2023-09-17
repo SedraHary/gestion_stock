@@ -21,7 +21,10 @@
         $("#userTypeTitle").text(userType==="admin"? "Admin": "Agent "+userAgentCode);
         $("#titleUserConnected").text(userName);
         $("#titleUserConnected2").text(userName);
-
+        $('#btnRefreshDashboard').click(function () {
+            location.reload();
+        });
+        
         if (userType!=="admin") {
             // Masquer les éléments de menu qui ne doivent pas être visibles pour les utilisateurs non administrateurs
             $("#bordMenu").hide();
