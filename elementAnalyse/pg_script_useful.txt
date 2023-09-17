@@ -149,5 +149,6 @@ afficher liste base de données: \l
 liste tables: \dt
 lister les schemas: SELECT schema_name FROM information_schema.schemata;
 connexion postgres avec psql : sudo -u postgres psql
-importaation d'une dump.sql : psql -U postgres -d database_name -f /chemin/vers/votre/fichier.sql
+importation d'une dump.sql : psql -U postgres -d database_name -f /chemin/vers/votre/fichier.sql
 annuler les modification git : git checkout . , git clean -f
+En cas de fichier ou dossier ajouter dans gitignore mais est toujours cibler dans git: git rm --cached -r server/db/
