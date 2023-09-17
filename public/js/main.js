@@ -430,7 +430,7 @@
     // Obtenez l'année
     const annee = dateActuelle.getFullYear();
     //récupération date base de données: date.slice(0,10)
-    $('#chiffreAffaire').text(`Chiffre d'affaire du mois`)
+    $('#chiffreAffaire').text(`Chiffre d'affaires et bénéfice journalières`)
     fetch("/api/bills",{
         method: "GET",
         headers: {
@@ -466,26 +466,51 @@
             } else {
                 resultat.push({ bill_date: objet.bill_date, bill_total_price: parseFloat(objet.bill_total_price), bill_benefice : parseFloat(objet.bill_total_price)-paTotal });
             }
-            // console.log(22,parseFloat(objet.bill_total_price));
-        // console.log(111,parseFloat(objet.bill_total_price),paTotal)
         });
         
-        // console.log(112,resultat)
         resultat.forEach(facture => {
             const ligne = $('<tr>');
             ligne.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
             ligne.append('<td>' + facture.bill_date.slice(0,10) + '</td>');
             ligne.append('<td>' + facture.bill_total_price + '</td>');
             ligne.append('<td>' + facture.bill_benefice + '</td>');
-            // ligne.append('</tr>')
             tableauResultat.append(ligne);
+        });
+
+        //Traitement des données annuelles
+
+        const groupedData = [];
+
+        resultat.forEach(item => {
+            // Extrait l'année de la date
+            const year = new Date(item.bill_date).getFullYear();
+          
+            // Recherchez si l'année existe déjà dans le tableau groupedData
+            const existingYearEntry = groupedData.find(entry => entry.year === year);
+          
+            // Si l'année n'existe pas encore, ajoutez-la au tableau
+            if (!existingYearEntry) {
+              groupedData.push({
+                year: year,
+                bill_total_price: item.bill_total_price,
+                bill_benefice: item.bill_benefice
+              });
+            } else {
+              // Si l'année existe déjà, mettez à jour les valeurs
+              existingYearEntry.bill_total_price += item.bill_total_price;
+              existingYearEntry.bill_benefice += item.bill_benefice;
+            }
+        });
+        
+        groupedData.forEach(facture => {
             const ligne2 = $('<tr>');
             ligne2.data('facture', facture); // Stocker l'identifiant dans l'attribut data-id
-            ligne2.append('<td>' + facture.bill_date.slice(0,4) + '</td>');
+            ligne2.append('<td>' + facture.year + '</td>');
             ligne2.append('<td>' + facture.bill_total_price + '</td>');
             ligne2.append('<td>' + facture.bill_benefice + '</td>');
             tableauResultatAnnuelle.append(ligne2);
         });
+
     })
     
 })(jQuery);
